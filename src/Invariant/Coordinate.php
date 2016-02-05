@@ -1,6 +1,8 @@
 <?php
 
-use EventSourced\ValueObject\Invariant;
+namespace EventSourced\Invariant;
+
+use EventSourced\Contract\Invariant;
 
 class Coordinate implements Invariant
 {
@@ -8,20 +10,17 @@ class Coordinate implements Invariant
     private $less_than;
     private $greater_than;
     
-    public function __construct(
-        Zend\I18n\Validator\IsFloat $float,
-        Zend\Validator\LessThan $less_than,
-        Zend\Validator\GreaterThan $greater_than
-    ){
-        $this->float = $float;
-        $this->less_than = $less_than;
-        $this->greater_than = $greater_than;
+    public function __construct(){
+        $this->float = new Float();
+        $this->less_than = new \Zend\Validator\LessThan(['max' => 90, 'inclusive' => true]);
+        $this->greater_than = new \Zend\Validator\GreaterThan(['min' => -90, 'inclusive' => true]);
     }
     
     public function is_satisfied_by($arguments)
     {
-        return ($this->float->isValid($arguments[0])
-            && $this->less_than->isValid($arguments[0])
-            && $this->greater_than->isValid($arguments[0]));
+        $float = (float)$arguments[0];
+        return ($this->float->is_satisfied_by([$float])
+            && $this->less_than->isValid($float)
+            && $this->greater_than->isValid($float));
     }
 }

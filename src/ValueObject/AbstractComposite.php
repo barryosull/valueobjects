@@ -1,6 +1,6 @@
 <?php
 
-namespace EventSourced\ValueObject\ValueObject;
+namespace EventSourced\ValueObject;
 
 abstract class AbstractComposite extends AbstractValueObject
 {

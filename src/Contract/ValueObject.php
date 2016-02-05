@@ -1,6 +1,6 @@
 <?php
 
-namespace EventSourced\ValueObject\Contract;
+namespace EventSourced\Contract;
 
 interface ValueObject 
 {

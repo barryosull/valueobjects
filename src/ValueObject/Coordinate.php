@@ -1,8 +1,8 @@
 <?php
 
-namespace EventSourced\ValueObject\ValueObject;
+namespace EventSourced\ValueObject;
 
-use EventSourced\ValueObject\Invariant;
+use EventSourced\Invariant;
 
 class Coordinate extends AbstractSingleValue 
 {    

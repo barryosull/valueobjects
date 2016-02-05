@@ -1,16 +1,15 @@
 <?php
 
-namespace EventSourced\ValueObject\ValueObject;
+namespace EventSourced\ValueObject;
 
-use EventSourced\ValueObject\Contract;
-
-use EventSourced\ValueObject\Assert;
+use EventSourced\Contract;
+use EventSourced\Assert;
 
 abstract class AbstractValueObject implements Contract\ValueObject
 {	
     protected $assert;
     
-    public function equals(ValueObject $valueobject) 
+    public function equals(Contract\ValueObject $valueobject) 
 	{
 		return $this->serialize() == $valueobject->serialize();
 	}

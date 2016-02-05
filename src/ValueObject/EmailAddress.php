@@ -1,10 +1,10 @@
 <?php
 
-namespace EventSourced\ValueObject\ValueObject;
+namespace EventSourced\ValueObject;
 
-use EventSourced\ValueObject\Invariant;
+use EventSourced\Invariant;
 
-class EmailAddress extends AbstractSingleValue 
+class EmailAddress extends AbstractSingleValue
 {    
     public function __construct($value) 
 	{

@@ -1,12 +1,14 @@
 <?php
 
-use EventSourced\ValueObject\Invariant;
+namespace EventSourced\Invariant;
+
+use EventSourced\Contract\Invariant;
 
 class EmailAddress implements Invariant
 {
     private $validator;
     
-    public function __construct(Zend\Validator\EmailAddress $validator) 
+    public function __construct(\Zend\Validator\EmailAddress $validator) 
     {
         $this->validator = $validator;
     }
