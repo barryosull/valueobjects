@@ -1,0 +1,25 @@
+{
+  "name": "eventsourced/valueobjects",
+  "description": "A helper library for making valueobjects",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Colin Lyons",
+      "email": "colin@craftingdomains.com"
+    },
+    {
+      "name": "Barry O'Sullivan",
+      "email": "barry@craftingdomains.com"
+    },
+    {
+      "name": "Kiran Guragai",
+      "email": "kiran@craftingdomains.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9",
+    "zendframework/zend-i18n": "2.5.1",
+    "zendframework/zend-validator": "2.5.3"
+  },
+  "minimum-stability": "dev"
+}
