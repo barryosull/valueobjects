@@ -30,5 +30,31 @@ class TestCoordinate extends \PHPUnit_Framework_TestCase
         $this->setExpectedException("Exception");
         new Coordinate(-90.00001);
     }
+    
+    public function test_serialize()
+    {
+        $value = 23.09232;
+        $coordinate = new Coordinate($value);
+        
+        $this->assertEquals($value, $coordinate->serialize());
+    }
+    
+    public function test_deserialize()
+    {
+        $value = 23.09232;
+        $coordinate = Coordinate::deserialize($value);
+        
+        $this->assertEquals($value, $coordinate->serialize());
+    }
+    
+    public function test_equals()
+    {
+        $coordinate_a = new Coordinate(23.22);
+        $coordinate_b = new Coordinate(23.22);
+        $coordinate_c = new Coordinate(54.11);
+        
+        $this->assertTrue($coordinate_a->equals($coordinate_b));
+        $this->assertFalse($coordinate_a->equals($coordinate_c));
+    }
 }
 

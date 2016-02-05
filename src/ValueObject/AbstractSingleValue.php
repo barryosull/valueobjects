@@ -18,6 +18,6 @@ abstract class AbstractSingleValue extends AbstractValueObject
 
 	public static function deserialize($value) 
 	{
-		return new self($value);
+		return new static($value);
 	}
 }
