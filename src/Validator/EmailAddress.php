@@ -2,24 +2,10 @@
 
 namespace EventSourced\Validator;
 
-use EventSourced\Contract\Validator;
-
-class EmailAddress implements Validator
-{
-    private $validator;
-    
-    public function __construct(\Zend\Validator\EmailAddress $validator) 
+class EmailAddress extends AbstractZend
+{ 
+    public function __construct() 
     {
-        $this->validator = $validator;
-    }
-    
-    public function is_valid($arguments)
-    {
-        return $this->validator->isValid($arguments[0]);
-    }
-
-    public function error_message()
-    {
-        return join(", ", $this->validator->getMessages());
+        parent::__construct(new \Zend\Validator\EmailAddress());
     }
 }
