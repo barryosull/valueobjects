@@ -18,7 +18,6 @@ class TestGPSCoordinates extends \PHPUnit_Framework_TestCase
     
     public function test_serialize()
     {
-        echo " . . . ".join($this->gps->serialize(), ",")." . . . ";
         $this->assertEquals($this->gps->serialize(), $this->deserialized);
     }
     

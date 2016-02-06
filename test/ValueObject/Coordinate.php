@@ -21,13 +21,13 @@ class TestCoordinate extends \PHPUnit_Framework_TestCase
     
     public function test_over_max_range() 
     {
-        $this->setExpectedException("Exception");
+        $this->setExpectedException(\EventSourced\AssertException::class);
         new Coordinate(90.00001);
     }
     
     public function test_under_min_range() 
     {
-        $this->setExpectedException("Exception");
+        $this->setExpectedException(\EventSourced\AssertException::class);
         new Coordinate(-90.00001);
     }
     

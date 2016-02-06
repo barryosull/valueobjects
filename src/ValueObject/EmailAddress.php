@@ -2,13 +2,13 @@
 
 namespace EventSourced\ValueObject;
 
-use EventSourced\Invariant;
+use EventSourced\Validator;
 
 class EmailAddress extends AbstractSingleValue
 {    
     public function __construct($value) 
 	{
-        $this->assert()->is(Invariant\EmailAddress::class, [$value]);
+        $this->assert()->is(Validator\EmailAddress::class, [$value]);
         parent::__construct($value);
     }
 }
