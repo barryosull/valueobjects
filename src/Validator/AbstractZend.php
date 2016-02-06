@@ -20,6 +20,6 @@ abstract class AbstractZend implements Validator
 
     public function error_message()
     {
-        return join(", ", $this->validator->getMessages());
+        return join(".\n", $this->validator->getMessages());
     }
 }

@@ -10,7 +10,7 @@ class Assert
     {
         $validator = DI::make($class);
         if (!$validator->is_valid($arguments)) {
-            throw new AssertException("Invariant $class error: [".join(", ", $arguments)."] is invalid. ".$validator->error_message());
+            throw new AssertException("$class: \n".$validator->error_message());
         }
     }
     
@@ -18,7 +18,7 @@ class Assert
     {
         $validator = DI::make($class);
         if ($validator->is_valid($arguments)) {
-            throw new AssertException("Invariant $class error: [".join(", ", $arguments)."] is valid");
+            throw new AssertException("$class: [".join(", ", $arguments)."] was considered valid");
         }
     }
 }
