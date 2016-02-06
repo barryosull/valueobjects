@@ -4,11 +4,13 @@ namespace EventSourced\ValueObject;
 
 abstract class AbstractComposite extends AbstractValueObject
 {
+    protected $values = [];
+    
 	public function serialize() 
 	{
 		$serialized = [];
-		foreach ($this as $property => $value) {
-			$serialized[$property] = methods_exists($value, 'serialize') 
+		foreach ($this->values as $property => $value) {
+			$serialized[$property] = method_exists($value, 'serialize') 
 				? $value->serialize()
 				: $value;
 		}
@@ -17,13 +19,13 @@ abstract class AbstractComposite extends AbstractValueObject
 
 	public static function deserialize($serialized)
 	{
-		$reflection = new \ReflectionClass(self);
-        $properties = $reflection->getProperties();
-        foreach ($properties as $property) {
-            $property_name = $property->getName();
-            $property_class = $property->class;
-            $deserialized[$property_name] = $property_class::deserialize(
-                $serialized[$property_name]
+		$reflection = new \ReflectionClass(get_called_class());
+        $pararameters = $reflection->getConstructor()->getParameters();
+        foreach ($pararameters as $parameter) {
+            $parameter_name = $parameter->getName();
+            $parameter_class = $parameter->getClass()->getName();
+            $deserialized[$parameter_name] = $parameter_class::deserialize(
+                $serialized[$parameter_name]
             );
         }
         return $reflection->newInstanceArgs($deserialized);
