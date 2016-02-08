@@ -6,10 +6,9 @@ use EventSourced\Validator;
 
 class Date extends AbstractSingleValue 
 {    
-    public function __construct($value) 
-	{
-        $this->assert()->is(Validator\Date::class, [$value]);
-        parent::__construct($value);
+    protected function validator_class()
+    {
+        return Validator\Date::class;
     }
     
     public function add_seconds(Integer $seconds)
