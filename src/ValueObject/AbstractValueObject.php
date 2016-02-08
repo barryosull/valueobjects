@@ -3,11 +3,11 @@
 namespace EventSourced\ValueObject;
 
 use EventSourced\Contract;
-use EventSourced\Assert;
+use EventSourced\Assert\Assert;
 
 abstract class AbstractValueObject implements Contract\ValueObject
 {	
-    private static $assert;
+    private static $asserts;
     
     public function equals(Contract\ValueObject $valueobject) 
 	{
@@ -16,7 +16,6 @@ abstract class AbstractValueObject implements Contract\ValueObject
     
     protected function assert()
     {
-        self::$assert = self::$assert ?: new Assert();
-        return self::$assert;
+        return new Assert(get_called_class());
     }
 }
