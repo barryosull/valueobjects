@@ -2,21 +2,13 @@
 
 namespace EventSourced\Validator;
 
-use EventSourced\Contract\Validator;
-
-class Float implements Validator
+class Float extends AbstractComposite
 {
     private $value;
     
-    public function error_message()
-    {
-        return "'$this->value' is not a valid float";
-    }
-
-    public function is_valid($arguments)
+    public function is_satisfied_by($arguments)
     {
         $this->value = $arguments[0];
         return is_numeric($arguments[0]);
     }
-
 }

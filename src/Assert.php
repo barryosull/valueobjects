@@ -2,23 +2,46 @@
 
 namespace EventSourced;
 
-class AssertException extends \Exception {}
+class InvariantException extends \Exception {
+    
+    private $invariant_class;
+    private $invariant_args;
+    
+    public function __construct($invariant_class, $invariant_args)
+    {
+        $this->invariant_class = $invariant_class;
+        $this->invariant_args = $invariant_args;
+        parent::__construct("", 0, null);
+    }
+    
+    public function invariant_class()
+    {
+        return $this->invariant_class;
+    }
+    
+    public function invariant_arguments()
+    {
+        return $this->invariant_args;
+    }
+}
+class AssertIsException extends InvariantException {}
+class AssertNotException extends InvariantException {}
 
 class Assert 
 {        
     public function is($class, $arguments) 
     {
         $validator = DI::make($class);
-        if (!$validator->is_valid($arguments)) {
-            throw new AssertException("$class: \n".$validator->error_message());
+        if (!$validator->is_satisfied_by($arguments)) {
+            throw new AssertIsException($class, $arguments);
         }
     }
     
     public function not($class, $arguments) 
     {
         $validator = DI::make($class);
-        if ($validator->is_valid($arguments)) {
-            throw new AssertException("$class: [".join(", ", $arguments)."] was considered valid");
+        if ($validator->is_satisfied_by($arguments)) {
+            throw new AssertNotException($class, $arguments);
         }
     }
 }

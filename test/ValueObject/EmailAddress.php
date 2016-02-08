@@ -13,7 +13,7 @@ class TestEmailAddress extends \PHPUnit_Framework_TestCase
     
     public function test_invalid_address()
     {
-        $this->setExpectedException(\EventSourced\AssertException::class);
+        $this->setExpectedException(\EventSourced\AssertIsException::class);
         new EmailAddress("invalid@xfdsfsdf");
     }
 }

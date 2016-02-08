@@ -2,24 +2,17 @@
 
 namespace EventSourced\Validator;
 
-use EventSourced\Contract\Validator;
-
-abstract class AbstractZend implements Validator
+abstract class AbstractZend extends AbstractComposite
 {
-    private $validator;
+    private $zend_validator;
     
     public function __construct($validator)
     {
-        $this->validator = $validator;
+        $this->zend_validator = $validator;
     }
         
-    public function is_valid($arguments)
+    public function is_satisfied_by($arguments)
     {
-        return $this->validator->isValid($arguments[0]);
-    }
-
-    public function error_message()
-    {
-        return join(".\n", $this->validator->getMessages());
+        return $this->zend_validator->isValid($arguments[0]);
     }
 }

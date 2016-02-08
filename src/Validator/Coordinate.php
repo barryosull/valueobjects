@@ -2,14 +2,18 @@
 
 namespace EventSourced\Validator;
 
+use EventSourced\Contract;
 use EventSourced\Validator;
+use EventSourced\Specification\Wrapper;
 
-class Coordinate extends AbstractComposite
+class Coordinate extends Wrapper implements Contract\Validator
 {
     public function __construct()
     {
-        $this->append_validator(new Validator\Float());
-        $this->append_validator(new Validator\GreaterThanOrEqual(-90));
-        $this->append_validator(new Validator\LessThanOrEqual(90));
+        $validator = (new Validator\Float())
+                ->and_x(new Validator\GreaterThanOrEqual(-90))
+                ->and_x(new Validator\LessThanOrEqual(90));
+        
+        parent::__construct($validator);
     }
 }
