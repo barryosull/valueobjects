@@ -7,7 +7,7 @@ use EventSourced\Assert;
 
 abstract class AbstractValueObject implements Contract\ValueObject
 {	
-    private $assert;
+    private static $assert;
     
     public function equals(Contract\ValueObject $valueobject) 
 	{
@@ -16,7 +16,7 @@ abstract class AbstractValueObject implements Contract\ValueObject
     
     protected function assert()
     {
-        $this->assert = $this->assert ?: new Assert();
-        return $this->assert;
+        self::$assert = self::$assert ?: new Assert();
+        return self::$assert;
     }
 }
