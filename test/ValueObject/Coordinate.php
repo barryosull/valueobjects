@@ -2,7 +2,9 @@
 
 namespace EventSourced\Test\ValueObject;
 
+use EventSourced\Validator;
 use EventSourced\ValueObject\Coordinate;
+use EventSourced\Assert;
 
 class TestCoordinate extends \PHPUnit_Framework_TestCase 
 {
@@ -23,6 +25,20 @@ class TestCoordinate extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(\EventSourced\Assert\IsException::class);
         new Coordinate(90.00001);
+    }
+    
+    public function test_error_exception_shape()
+    {
+        $exception = new \Exception();
+        try {
+            new Coordinate(90.00001);
+        } catch (Assert\IsException $ex) {
+            $exception = $ex;
+        }
+        
+        $this->assertEquals(Validator\Coordinate::class, $exception->invariant_class());
+        $this->assertEquals([90.00001], $exception->invariant_arguments());
+        $this->assertEquals(Coordinate::class, $exception->calling_class());
     }
     
     public function test_under_min_range() 
