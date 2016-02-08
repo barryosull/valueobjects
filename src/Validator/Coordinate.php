@@ -2,11 +2,9 @@
 
 namespace EventSourced\Validator;
 
-use EventSourced\Contract;
 use EventSourced\Validator;
-use EventSourced\Specification\Wrapper;
 
-class Coordinate extends Wrapper implements Contract\Validator
+class Coordinate extends AbstractWrapper
 {
     public function __construct()
     {

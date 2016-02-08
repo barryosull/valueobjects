@@ -4,18 +4,21 @@ namespace EventSourced\ValueObject;
 
 abstract class AbstractComposite extends AbstractValueObject
 {  
+    private $value_objects;
+    
+    public function __construct()
+    {
+        $this->value_objects = func_get_args();
+    }
+    
 	public function serialize() 
 	{
-        $reflect = new \ReflectionClass($this);
-        $props = $reflect->getProperties();
-        $serialized = [];
-        foreach ($props as $property) {
-            $property->setAccessible(true);
-            $name = $property->getName();
-            $value = $property->getValue($this);
-            $serialized[$name] = method_exists($value, 'serialize') 
-				? $value->serialize()
-				: $value;
+        $reflection = new \ReflectionClass(get_called_class());
+        $pararameters = $reflection->getConstructor()->getParameters();
+        foreach ($pararameters as $index=>$parameter) {
+            $name = $parameter->getName();
+            $value = $this->value_objects[$index];   
+            $serialized[$name] = $value->serialize();
         }
 		return $serialized;
 	}	
@@ -25,10 +28,10 @@ abstract class AbstractComposite extends AbstractValueObject
 		$reflection = new \ReflectionClass(get_called_class());
         $pararameters = $reflection->getConstructor()->getParameters();
         foreach ($pararameters as $parameter) {
-            $parameter_name = $parameter->getName();
-            $parameter_class = $parameter->getClass()->getName();
-            $deserialized[$parameter_name] = $parameter_class::deserialize(
-                $serialized[$parameter_name]
+            $name = $parameter->getName();
+            $class = $parameter->getClass()->getName();
+            $deserialized[$name] = $class::deserialize(
+                $serialized[$name]
             );
         }
         return $reflection->newInstanceArgs($deserialized);
