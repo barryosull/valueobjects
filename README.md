@@ -43,13 +43,11 @@ Validators are designed to be chained together to form more complex validators. 
 ```php
 class Coordinate extends AbstractWrapper
 {
-    public function __construct()
+    public function compostite_validator()
     {
-        $validator = (new Validator\Float())
+        return (new Validator\Float())
             ->and_x(new Validator\GreaterThanOrEqual(-90))
             ->and_x(new Validator\LessThanOrEqual(90));
-        
-        parent::__construct($validator);
     }
 }
 ```
@@ -68,9 +66,10 @@ class GPSCoordinates extends AbstractComposite
     }
 }
 ```
+That's it, the base class figures out the test.
 
 ### Enum validators
-Enums are fairly common, so w've added a base class that makes creating them incredibly easy.
+Enums are fairly common, so we've added a base class that makes creating them incredibly easy.
 ```php
 
 class TemperatureScale extends AbstractEnum {
