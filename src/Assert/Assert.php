@@ -2,8 +2,6 @@
 
 namespace EventSourced\Assert;
 
-use EventSourced\DI;
-
 class Assert 
 {        
     private $calling_class;
@@ -15,7 +13,7 @@ class Assert
     
     public function is($class, $arguments) 
     {
-        $validator = DI::make($class);
+        $validator = new $class();
         if (!$validator->is_satisfied_by($arguments)) {
             throw new IsException($class, $arguments, $this->calling_class);
         }
@@ -23,7 +21,7 @@ class Assert
     
     public function not($class, $arguments) 
     {
-        $validator = DI::make($class);
+        $validator = new $class();
         if ($validator->is_satisfied_by($arguments)) {
             throw new NotException($class, $arguments, $this->calling_class);
         }

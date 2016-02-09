@@ -18,7 +18,6 @@
   ],
   "require": {
     "php": ">=5.5.9",
-    "php-di/php-di": "5.2.1",
     "zendframework/zend-i18n": "2.5.1",
     "zendframework/zend-validator": "2.5.3"
   },
