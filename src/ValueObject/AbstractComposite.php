@@ -9,6 +9,14 @@ abstract class AbstractComposite extends AbstractValueObject
     public function __construct()
     {
         $this->value_objects = func_get_args();
+        if ($this->validator_class()) {
+            $this->assert()->is($this->validator_class(), $this->value_objects);
+        }
+    }
+    
+    protected function validator_class()
+    {
+        return null;
     }
     
 	public function serialize() 

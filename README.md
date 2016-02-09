@@ -69,6 +69,21 @@ class GPSCoordinates extends AbstractComposite
 }
 ```
 
+### Enum validators
+Enums are fairly common, so w've added a base class that makes creating them incredibly easy.
+```php
+
+class TemperatureScale extends AbstractEnum {
+    
+    protected function enums() {
+        return [
+          'c',
+          'f'
+        ];
+    }
+}
+```
+
 ### Comparing
 Comparing valueobjects is easy. Just use the built in equals function. You get this out of the box if you extend the "AbstractSingleValue" or "AbstractComposite" classes.
 ```php

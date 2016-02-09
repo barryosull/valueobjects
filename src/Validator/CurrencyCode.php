@@ -4,8 +4,8 @@ namespace EventSourced\Validator;
 
 class CurrencyCode extends AbstractEnum {
     
-    public function __construct() {
-        $enums = [
+    protected function enums() {
+        return [
             'AED',
             'AFN',
             'ALL',
@@ -168,6 +168,5 @@ class CurrencyCode extends AbstractEnum {
             'ZMW',
             'ZWD'  
         ];
-        parent::__construct($enums);
     }
 }
