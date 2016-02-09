@@ -69,6 +69,14 @@ class GPSCoordinates extends AbstractComposite
 }
 ```
 
+### Comparing
+Comparing valueobjects is easy. Just use the built in equals function. You get this out of the box if you extend the "AbstractSingleValue" or "AbstractComposite" classes.
+```php
+$float_a = new Float(0.121);
+$float_b = new Float(0.121);
+$same = $float_a->equals($float_b);
+```
+
 ### Serializing
 Our valueobjects are intended to be used as part of our event sourcing framework, so it's important that valueobjects and be serialized and deserialized.
 Thankfully, our abstract classes provide this functionality out of the box, so you don't have to worry. Simply extends those classes, and you have that functionality.
