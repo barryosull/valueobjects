@@ -114,6 +114,6 @@ try {
 } catch (Assert\IsException $ex) {
     $exception->invariant_class();
     $exception->invariant_arguments();
-  $exception->calling_class();
+    $exception->calling_class();
 }
 ```
