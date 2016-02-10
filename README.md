@@ -13,7 +13,6 @@ These are ValueObjects that are given a single value that they must validate. Fo
 
 #### Making a new Single Value VO
 ```php
-
 use EventSourced\ValueObject;
 use EventSourced\Validator;
 
@@ -31,7 +30,6 @@ Validators make sure that values are, well, valid. They're very simples classes 
 
 #### Making a new validator
 ```php
-
 use EventSourced\Validator;
 
 class Float extends Validator\AbstractValidator
@@ -48,7 +46,6 @@ Validators are designed to be chained together to form more complex validators. 
 
 #### Making a ValueObject from multiple validators
 ```php
-
 use EventSourced\ValueObject;
 use EventSourced\Validator;
 
@@ -69,7 +66,6 @@ An example is a locations GPS coordinate, it's actually a composite of two Coord
 
 #### Making a composite ValueObject
 ```php
-
 use EventSourced\ValueObject;
 
 class GPSCoordinates extends ValueObject\AbstractComposite 
@@ -85,7 +81,6 @@ That's it, the base class figures out the rest.
 ### Enum validators
 Enums are fairly common, so we've added a base class that makes creating them incredibly easy.
 ```php
-
 use EventSourced\ValueObject;
 
 class TemperatureScale extends ValueObject\AbstractEnum {
@@ -126,7 +121,6 @@ $float_again = Float::deserialize($serialized);
 ### Zend Validators
 There's no point reinventing the wheel, so we've made it easy to use existing validator libraries, in this case, the Zend Framework.
 ```php
-
 use EventSourced\Validator;
 
 class EmailAddress extends Validator\AbstractZend
