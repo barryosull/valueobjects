@@ -36,9 +36,8 @@ class TestCoordinate extends \PHPUnit_Framework_TestCase
             $exception = $ex;
         }
         
-        $this->assertEquals(Validator\Coordinate::class, $exception->invariant_class());
-        $this->assertEquals([90.00001], $exception->invariant_arguments());
-        $this->assertEquals(Coordinate::class, $exception->calling_class());
+        $this->assertEquals(90.00001, $exception->value());
+        $this->assertEquals(Coordinate::class, $exception->valueobject_class());
     }
     
     public function test_under_min_range() 

@@ -2,10 +2,10 @@
 
 namespace EventSourced\Validator;
 
-class Date extends AbstractComposite
+class Date extends AbstractValidator
 { 
-    public function is_satisfied_by($arguments)
+    public function is_satisfied_by($value)
     {
-        return strtotime($arguments[0]) !== false;
+        return strtotime($value) !== false;
     }
 }

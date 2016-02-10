@@ -2,11 +2,11 @@
 
 namespace EventSourced\Validator;
 
-abstract class AbstractEnum extends AbstractComposite
+abstract class AbstractEnum extends AbstractValidator
 {    
-    public function is_satisfied_by($arguments)
+    public function is_satisfied_by($value)
     {
-        return in_array($arguments[0], $this->enums());
+        return in_array($value, $this->enums());
     }
     
     abstract protected function enums();

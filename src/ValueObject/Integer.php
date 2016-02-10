@@ -6,8 +6,8 @@ use EventSourced\Validator;
 
 class Integer extends AbstractSingleValue 
 {    
-    protected function validator_class()
+    protected function validator()
     {
-        return Validator\Integer::class;
+        return new Validator\Integer();
     }
 }

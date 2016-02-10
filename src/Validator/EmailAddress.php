@@ -4,8 +4,10 @@ namespace EventSourced\Validator;
 
 class EmailAddress extends AbstractZend
 { 
-    public function __construct() 
+    public function __construct()
     {
-        parent::__construct(new \Zend\Validator\EmailAddress());
+        parent::__construct( 
+            new \Zend\Validator\EmailAddress()
+        );
     }
 }

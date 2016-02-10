@@ -6,8 +6,8 @@ use EventSourced\Validator;
 
 class EmailAddress extends AbstractSingleValue
 {        
-    protected function validator_class()
+    protected function validator()
     {
-        return Validator\EmailAddress::class;
+        return new Validator\EmailAddress();
     }
 }

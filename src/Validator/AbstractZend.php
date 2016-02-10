@@ -2,7 +2,7 @@
 
 namespace EventSourced\Validator;
 
-abstract class AbstractZend extends AbstractComposite
+abstract class AbstractZend extends AbstractValidator
 {
     private $zend_validator;
     
@@ -11,8 +11,8 @@ abstract class AbstractZend extends AbstractComposite
         $this->zend_validator = $validator;
     }
         
-    public function is_satisfied_by($arguments)
+    public function is_satisfied_by($value)
     {
-        return $this->zend_validator->isValid($arguments[0]);
+        return $this->zend_validator->isValid($value);
     }
 }

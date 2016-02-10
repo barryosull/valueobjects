@@ -2,32 +2,25 @@
 
 namespace EventSourced\Invariant;
 
-class Exception extends \Exception {
+class Exception extends \Exception 
+{
+    private $value;
+    private $valueobject_class;
     
-    private $invariant_class;
-    private $invariant_args;
-    private $calling_class;
-    
-    public function __construct($invariant_class, $invariant_args, $calling_class)
+    public function __construct($value, $valueobject_class)
     {
-        $this->invariant_class = $invariant_class;
-        $this->invariant_args = $invariant_args;
-        $this->calling_class = $calling_class;
+        $this->value = $value;
+        $this->valueobject_class = $valueobject_class;
         parent::__construct("", 0, null);
     }
     
-    public function invariant_class()
+    public function value()
     {
-        return $this->invariant_class;
+        return $this->value;
     }
     
-    public function invariant_arguments()
+    public function valueobject_class()
     {
-        return $this->invariant_args;
-    }
-    
-    public function calling_class()
-    {
-        return $this->calling_class;
+        return $this->valueobject_class;
     }
 }

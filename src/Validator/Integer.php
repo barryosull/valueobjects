@@ -2,10 +2,10 @@
 
 namespace EventSourced\Validator;
 
-class Integer extends AbstractComposite
+class Integer extends AbstractValidator
 {    
-    public function is_satisfied_by($arguments)
+    public function is_satisfied_by($value)
     {
-        return is_numeric($arguments[0]) && (int)$arguments[0] == $arguments[0];
+        return is_numeric($value) && (int)$value == $value;
     }
 }

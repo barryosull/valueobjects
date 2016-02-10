@@ -6,8 +6,8 @@ use EventSourced\Validator;
 
 class CurrencyCode extends AbstractSingleValue 
 {    
-    protected function validator_class()
+    protected function validator()
     {
-        return Validator\CurrencyCode::class;
+        return new Validator\CurrencyCode();
     }
 }

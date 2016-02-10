@@ -6,8 +6,10 @@ use EventSourced\Validator;
 
 class Coordinate extends AbstractSingleValue 
 {    
-    protected function validator_class()
+    protected function validator()
     {
-        return Validator\Coordinate::class;
+        return (new Validator\Float())
+            ->and_x(new Validator\GreaterThanOrEqual(-90))
+            ->and_x(new Validator\LessThanOrEqual(90));
     }
 }
