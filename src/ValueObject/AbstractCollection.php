@@ -24,30 +24,28 @@ abstract class AbstractCollection extends AbstractValueObject
         $this->collection = $items;
 	}
 
-	public function serialize() 
-	{
-		return array_map(function($item){
-            return $item->serialize();
-        }, $this->collection);
-	}
-
-	public static function deserialize($serialized) 
-	{
-        $collection = new static([]);
-        $collection_of_class = $collection->collection_of_class();
-        foreach ($serialized as $value) {
-            $collection = $collection->append( $collection_of_class::deserialize($value) );
-        }
-		return $collection;
-	}
-    
-    public function append($item) 
+    public function add($item) 
     {
         $items = $this->collection;
         $items[] = $item;
         return new static($items);
     }
     
+    public function count() 
+    {
+        return count($this->collection);
+    }
+    
+    public function exists($item)
+    {
+        foreach($this->collection as $compare_item) {
+            if ($item->equals($compare_item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+        
     public function remove($item)
     {
         $items = [];
@@ -58,4 +56,21 @@ abstract class AbstractCollection extends AbstractValueObject
         }
         return new static($items);
     }
+    
+    public static function deserialize($serialized) 
+	{
+        $collection = new static([]);
+        $collection_of_class = $collection->collection_of_class();
+        foreach ($serialized as $value) {
+            $collection = $collection->add( $collection_of_class::deserialize($value) );
+        }
+		return $collection;
+	}
+    
+    public function serialize() 
+	{
+		return array_map(function($item){
+            return $item->serialize();
+        }, $this->collection);
+	}
 }
