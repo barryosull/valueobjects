@@ -8,6 +8,6 @@ class Float extends AbstractSingleValue
 {    
     protected function validator()
     {
-        return Validator\Float();
+        return new Validator\Float();
     }
 }
