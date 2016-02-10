@@ -47,4 +47,15 @@ abstract class AbstractCollection extends AbstractValueObject
         $items[] = $item;
         return new static($items);
     }
+    
+    public function remove($item)
+    {
+        $items = [];
+        foreach($this->collection as $compare_item) {
+            if (!$item->equals($compare_item)) {
+                $items[] = $compare_item;
+            }
+        }
+        return new static($items);
+    }
 }

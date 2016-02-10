@@ -34,8 +34,14 @@ class TestIntegerCollection extends \PHPUnit_Framework_TestCase
     {
         $collection = $this->test_valid_value();
         $deserialized = IntegerCollection::deserialize($collection->serialize());
-        //$this->assertTrue($collection->equals($deserialized));
+        $this->assertTrue($collection->equals($deserialized));
+    }
+    
+    public function test_remove()
+    {
+        $collection = $this->test_valid_value()->remove(new Integer(7));        
+        $expected = new IntegerCollection([new Integer(5)]);
         
-        $this->assertEquals($collection->serialize(), $deserialized->serialize());
+        $this->assertTrue($collection->equals($expected));
     }
 }
