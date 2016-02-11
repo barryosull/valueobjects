@@ -2,13 +2,13 @@
 
 namespace EventSourced\ValueObject;
 
-use EventSourced\Validator;
+use Respect\Validation\Validator;
 
 class Date extends AbstractSingleValue 
 {    
     protected function validator()
     {
-        return new Validator\Date();
+        return Validator::Date();
     }
     
     public function add_seconds(Integer $seconds)

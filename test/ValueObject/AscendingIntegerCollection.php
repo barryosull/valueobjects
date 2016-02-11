@@ -8,7 +8,7 @@ class TestIntegerSequence extends \PHPUnit_Framework_TestCase
 {
     public function test_valid_value()
     {
-        return new AscendingIntegerCollection([new Integer(5), new Integer(7)]);
+        return new AscendingIntegerCollection([new Integer(5), new Integer(5), new Integer(7)]);
     }
     
     public function test_invalid_sequence()

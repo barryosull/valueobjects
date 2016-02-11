@@ -2,12 +2,12 @@
 
 namespace EventSourced\ValueObject;
 
-use EventSourced\Validator;
+use Respect\Validation\Validator;
 
 class Integer extends AbstractSingleValue 
 {    
     protected function validator()
     {
-        return new Validator\Integer();
+        return Validator::intVal();
     }
 }

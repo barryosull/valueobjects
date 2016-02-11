@@ -2,12 +2,12 @@
 
 namespace EventSourced\ValueObject;
 
-use EventSourced\Validator;
+use Respect\Validation\Validator;
 
 class CurrencyCode extends AbstractSingleValue 
 {    
     protected function validator()
     {
-        return new Validator\CurrencyCode();
+        return Validator::currencyCode();
     }
 }

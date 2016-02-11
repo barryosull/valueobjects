@@ -2,7 +2,7 @@
 
 namespace EventSourced\ValueObject;
 
-use EventSourced\Validator;
+use Respect\Validation\Validator;
 
 abstract class AbstractCollection extends AbstractValueObject
 {	
@@ -12,7 +12,7 @@ abstract class AbstractCollection extends AbstractValueObject
     
     protected function item_validator() 
     {
-        return new Validator\ClassType($this->collection_of_class());
+        return Validator::instance($this->collection_of_class());
     }
 
 	public function __construct(array $items) 

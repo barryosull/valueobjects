@@ -2,14 +2,12 @@
 
 namespace EventSourced\ValueObject;
 
-use EventSourced\Validator;
+use Respect\Validation\Validator;
 
 class Coordinate extends AbstractSingleValue 
 {    
     protected function validator()
     {
-        return (new Validator\Float())
-            ->and_x(new Validator\GreaterThanOrEqual(-90))
-            ->and_x(new Validator\LessThanOrEqual(90));
+        return Validator::floatVal()->between(-90, 90);
     }
 }

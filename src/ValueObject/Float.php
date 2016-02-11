@@ -2,12 +2,12 @@
 
 namespace EventSourced\ValueObject;
 
-use EventSourced\Validator;
+use Respect\Validation\Validator;
 
 class Float extends AbstractSingleValue 
 {    
     protected function validator()
     {
-        return new Validator\Float();
+        return Validator::floatVal();
     }
 }

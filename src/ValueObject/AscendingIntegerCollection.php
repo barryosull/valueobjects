@@ -2,6 +2,8 @@
 
 namespace EventSourced\ValueObject;
 
+use Respect\Validation\Validator;
+
 class AscendingIntegerCollection  extends AbstractOrderedCollection 
 {    
     protected function collection_of_class()
@@ -9,8 +11,8 @@ class AscendingIntegerCollection  extends AbstractOrderedCollection
         return Integer::class;
     }
     
-    protected function order_validator_class()
+    protected function order_validator($preceding_value)
     {
-       return Validator\GreaterThan::class;
+       return Validator::floatVal()->min($preceding_value);
     }
 }

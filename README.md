@@ -14,65 +14,31 @@ These are ValueObjects that are given a single value that they must validate. Fo
 #### Making a new Single Value VO
 ```php
 use EventSourced\ValueObject;
-use EventSourced\Validator;
+use Respect\Validation\Validator;
 
 class Integer extends ValueObject\AbstractSingleValue 
 {    
     protected function validator()
     {
-        return new Validator\Integer();
+        return Validator::intVal();
     }
 }
 ```
 
 ### Validators
-Validators make sure that values are, well, valid. They're very simples classes and they're easy to make. 
-
-#### Making a new validator
-```php
-use EventSourced\Validator;
-
-class Float extends Validator\AbstractValidator
-{    
-    public function is_satisfied_by($value)
-    {
-        return is_numeric($value);
-    }
-}
-```
-
-
-### Enum validators
-Enums are fairly common, so we've added a base class that makes creating them incredibly easy.
-```php
-use EventSourced\ValueObject;
-
-class TemperatureScale extends ValueObject\AbstractEnum {
-    
-    protected function enums() {
-        return [
-          'c',
-          'f'
-        ];
-    }
-}
-```
+ValueObjects use validators to do their job. Instead of writing our own library, we've decided to use the excellent (Respect Validation)[http://respect.github.io/Validation/] library. It has all the validators you could ask for, and it's syntax is concise and elegant.
 
 ### Chaining Validators
-Validators are designed to be chained together to form more complex validators. This is done via the specification pattern, so building a new validator from existing validators is incredibly easy.
-
-#### Making a ValueObject from multiple validators
+Respect Validators are chainable, so building complex validators for your value objects is a piece of cake.
 ```php
 use EventSourced\ValueObject;
-use EventSourced\Validator;
+use Respect\Validation\Validator;
 
 class Coordinate extends ValueObject\AbstractSingleValue 
 {    
     protected function validator()
     {
-        return (new Validator\Float())
-            ->and_x(new Validator\GreaterThanOrEqual(-90))
-            ->and_x(new Validator\LessThanOrEqual(90));
+        return Validator::floatVal()->between(-90, 90);
     }
 }
 ```
@@ -96,7 +62,7 @@ class GPSCoordinates extends ValueObject\AbstractComposite
 That's it, the base class figures out the rest.
 
 ### Collections
-Sometimes you'll want to have a collection of ValueObjects. Now, you can't use a standard array, because the deserializer has to know what type of ValueObject is in the collection. That's why we create a simple helper class for creating strongly typed collections of ValueObjects
+Sometimes you'll want to have a collection of ValueObjects. Now, you can't use a standard array, because the deserializer has to know what type of ValueObject is in the collection. That's why we created a simple helper class for creating strongly typed collections of ValueObjects.
 ```php
 namespace EventSourced\ValueObject;
 
@@ -111,8 +77,10 @@ class IntegerCollection extends AbstractCollection
 You just need to define the "collection_of_class" and return the class type of the collection. The base class will ensure that all items added to the list are of the correct type.
 
 ### Ordered Collections
-Occasionally you'll want to define an ordered collections, one where the sequence is important. Here's how you do that using out helper abstract class "AbstractOrderedCollection"
+Occasionally you'll want to define an ordered collection, one where the sequence is important. Here's how to do that using our helper abstract class "AbstractOrderedCollection".
 ```php
+use Respect\Validation\Validator;
+
 class AscendingIntegerCollection  extends AbstractOrderedCollection 
 {    
     protected function collection_of_class()
@@ -120,9 +88,9 @@ class AscendingIntegerCollection  extends AbstractOrderedCollection
         return Integer::class;
     }
     
-    protected function order_validator_class()
+    protected function order_validator($preceding_value)
     {
-       return Validator\GreaterThan::class;
+       return Validator::floatVal()->min($preceding_value);
     }
 }
 ```
@@ -137,7 +105,7 @@ $same = $float_a->equals($float_b);
 ```
 
 ### Serializing
-Our ValueObjects are intended to be used as part of our event sourcing framework, so it's important that ValueObjects and be serialized and deserialized.
+Our ValueObjects are intended to be used as part of our event sourcing framework, so it's important that ValueObjects can be serialized and deserialized.
 Thankfully, our abstract classes provide this functionality out of the box, so you don't have to worry. Simply extends those classes, and you have that functionality.
 ```php
 $float = new Float(0.121);
@@ -145,25 +113,11 @@ $serialized = $float->serialize();
 ```
 
 ### Deserializing
-Once you've serialized a ValueObject, you'll want to deserialize it. To do that, pass the serialized result to the status deserialize function, and you'll get the full ValueObject back.
+Once you've serialized a ValueObject, you'll want to deserialize it at some future time. To do that, pass the serialized result to the static deserialize function, and you'll get the full ValueObject back.
 ```php
 $float = new Float(0.121);
 $serialized = $float->serialize();
 $float_again = Float::deserialize($serialized);
-```
-
-### Zend Validators
-There's no point reinventing the wheel, so we've made it easy to use existing validator libraries, in this case, the Zend Framework.
-```php
-use EventSourced\Validator;
-
-class EmailAddress extends Validator\AbstractZend
-{ 
-    public function __construct() 
-    {
-        parent::__construct(new \Zend\Validator\EmailAddress());
-    }
-}
 ```
 
 ### Error Messages
