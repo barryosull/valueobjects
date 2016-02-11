@@ -26,7 +26,7 @@ class Integer extends ValueObject\AbstractSingleValue
 ```
 
 ### Validators
-ValueObjects use validators to do their job. Instead of writing our own library, we've decided to use the excellent (Respect Validation)[http://respect.github.io/Validation/] library. It has all the validators you could ask for, and it's syntax is concise and elegant.
+ValueObjects use validators to do their job. Instead of writing our own library, we've decided to use the excellent [Respect Validation](http://respect.github.io/Validation/) library. It has all the validators you could ask for, and it's syntax is concise and elegant.
 
 ### Chaining Validators
 Respect Validators are chainable, so building complex validators for your value objects is a piece of cake.
