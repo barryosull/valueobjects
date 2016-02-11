@@ -6,7 +6,7 @@ use Respect\Validation\Validator;
 
 abstract class AbstractCollection extends AbstractValueObject
 {	
-	protected $collection;
+	protected $collection = [];
     
     abstract protected function collection_of_class();
     
