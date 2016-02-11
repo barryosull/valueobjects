@@ -41,6 +41,23 @@ class Float extends Validator\AbstractValidator
 }
 ```
 
+
+### Enum validators
+Enums are fairly common, so we've added a base class that makes creating them incredibly easy.
+```php
+use EventSourced\ValueObject;
+
+class TemperatureScale extends ValueObject\AbstractEnum {
+    
+    protected function enums() {
+        return [
+          'c',
+          'f'
+        ];
+    }
+}
+```
+
 ### Chaining Validators
 Validators are designed to be chained together to form more complex validators. This is done via the specification pattern, so building a new validator from existing validators is incredibly easy.
 
@@ -78,24 +95,41 @@ class GPSCoordinates extends ValueObject\AbstractComposite
 ```
 That's it, the base class figures out the rest.
 
-### Enum validators
-Enums are fairly common, so we've added a base class that makes creating them incredibly easy.
+### Collections
+Sometimes you'll want to have a collection of ValueObjects. Now, you can't use a standard array, because the deserializer has to know what type of ValueObject is in the collection. That's why we create a simple helper class for creating strongly typed collections of ValueObjects
 ```php
-use EventSourced\ValueObject;
+namespace EventSourced\ValueObject;
 
-class TemperatureScale extends ValueObject\AbstractEnum {
-    
-    protected function enums() {
-        return [
-          'c',
-          'f'
-        ];
+class IntegerCollection extends AbstractCollection 
+{    
+    protected function collection_of_class()
+    {
+        return Integer::class;
     }
 }
 ```
+You just need to define the "collection_of_class" and return the class type of the collection. The base class will ensure that all items added to the list are of the correct type.
+
+### Ordered Collections
+Occasionally you'll want to define an ordered collections, one where the sequence is important. Here's how you do that using out helper abstract class "AbstractOrderedCollection"
+```php
+class AscendingIntegerCollection  extends AbstractOrderedCollection 
+{    
+    protected function collection_of_class()
+    {
+        return Integer::class;
+    }
+    
+    protected function order_validator_class()
+    {
+       return Validator\GreaterThan::class;
+    }
+}
+```
+Implement those two methods and you'll have a list that's ordered by the result of a validator, comparing each element to the one next to it.
 
 ### Comparing
-Comparing ValueObjects is easy. Just use the built in equals function. You get this out of the box if you extend the "AbstractSingleValue" or "AbstractComposite" classes.
+Comparing ValueObjects is easy. Just use the built in equals function. You get this out of the box if you extend any of the abstract classes (except AbstractValueObject).
 ```php
 $float_a = new Float(0.121);
 $float_b = new Float(0.121);
