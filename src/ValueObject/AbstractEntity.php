@@ -8,8 +8,9 @@ abstract class AbstractEntity extends AbstractComposite
     
     public function __construct()
     {
-        $this->id = func_get_args()[0];
-        parent::__construct(func_get_args());
+        $this->id = func_get_arg(0);
+        $args = func_get_args();
+        parent::__construct(...$args);
     }
     
     public function id() 

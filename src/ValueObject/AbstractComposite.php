@@ -17,7 +17,7 @@ abstract class AbstractComposite extends AbstractValueObject
             ->getConstructor()->getParameters();
         foreach ($pararameters as $index=>$parameter) {
             $name = $parameter->getName();
-            $value = $this->value_objects[$index];   
+            $value = $this->value_objects[$index]; 
             $serialized[$name] = $value->serialize();
         }
 		return $serialized;

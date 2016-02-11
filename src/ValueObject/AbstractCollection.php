@@ -69,8 +69,9 @@ abstract class AbstractCollection extends AbstractValueObject
     
     public function serialize() 
 	{
-		return array_map(function($item){
+        $serialized = array_map(function($item){
             return $item->serialize();
         }, $this->collection);
+		return array_values($serialized);
 	}
 }
