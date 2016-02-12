@@ -13,7 +13,7 @@ class AscendingIntegerCollection  extends AbstractOrderedCollection
     
     protected function order_validator($preceding_value)
     {
-       Validator::with('EventSourced\\Validator\\');
-       return Validator::GreaterThanOrEqual($preceding_value);
+        Validator::with('EventSourced\\ValueObject\\Validator\\');
+        return Validator::GreaterThanOrEqual($preceding_value);
     }
 }

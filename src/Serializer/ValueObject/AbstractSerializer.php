@@ -6,7 +6,7 @@ class AbstractSerializer
 {    
     protected function get_private_property($object, $property_name)
     {
-        $reflection = new \ReflectionObject($object);
+        $reflection = $this->relection_factory(get_class($object));
         $property = $reflection->getProperty($property_name);
         $property->setAccessible(true);
         return $property->getValue($object);

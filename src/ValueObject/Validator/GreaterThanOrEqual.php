@@ -1,6 +1,6 @@
 <?php
 
-namespace EventSourced\Validator;
+namespace EventSourced\ValueObject\Validator;
 
 use Respect\Validation\Rules\AbstractRule;
 
