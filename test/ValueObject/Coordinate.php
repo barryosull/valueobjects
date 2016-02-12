@@ -2,7 +2,6 @@
 
 namespace EventSourced\Test\ValueObject;
 
-use EventSourced\Validator;
 use EventSourced\ValueObject\Coordinate;
 use EventSourced\Assert;
 
@@ -44,22 +43,6 @@ class TestCoordinate extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(\EventSourced\Assert\IsException::class);
         new Coordinate(-90.00001);
-    }
-    
-    public function test_serialize()
-    {
-        $value = 23.09232;
-        $coordinate = new Coordinate($value);
-        
-        $this->assertEquals($value, $coordinate->serialize());
-    }
-    
-    public function test_deserialize()
-    {
-        $value = 23.09232;
-        $coordinate = Coordinate::deserialize($value);
-        
-        $this->assertEquals($value, $coordinate->serialize());
     }
     
     public function test_equals()

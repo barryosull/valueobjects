@@ -10,4 +10,9 @@ class Integer extends AbstractSingleValue
     {
         return Validator::intVal();
     }
+    
+    public function is_greater_than(Integer $integer)
+    {
+        return $this->value > $integer->value;
+    }
 }

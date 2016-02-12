@@ -15,18 +15,7 @@ class TestGPSCoordinates extends \PHPUnit_Framework_TestCase
         $this->gps = new GPSCoordinates(new Coordinate(23.9),  new Coordinate(90.0));
         parent::setUp();
     }
-    
-    public function test_serialize()
-    {
-        $this->assertEquals($this->deserialized, $this->gps->serialize());
-    }
-    
-    public function test_deserialize()
-    {
-        $gps = GPSCoordinates::deserialize($this->deserialized);
-        $this->assertTrue($this->gps->equals($gps));
-    }
-    
+       
     public function test_equals()
     {
         $gps = new GPSCoordinates(new Coordinate(23.9),  new Coordinate(83.0));

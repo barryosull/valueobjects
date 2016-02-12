@@ -42,18 +42,4 @@ class TestSampleEntityIndex extends \PHPUnit_Framework_TestCase
         $existing = new SampleEntity(new UUID("ac9e4e83-5495-4a58-90d9-eeeaf3989bc8"), new Date('2012-01-21'));
         $this->index->add($existing);
     }
-    
-    public function test_serialize()
-    {
-        $serialized = $this->index->serialize();
-        $expected = [["id"=>"ac9e4e83-5495-4a58-90d9-eeeaf3989bc8", "date"=>"2012-01-20"]];
-        $this->assertEquals($expected, $serialized);
-    }
-    
-    public function test_deserialize()
-    {
-        $index = $this->test_add();
-        $deserialized = SampleEntityIndex::deserialize($index->serialize());
-        $this->assertTrue($index->equals($deserialized));
-    }
 }

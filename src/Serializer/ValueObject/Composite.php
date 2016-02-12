@@ -2,10 +2,18 @@
 
 namespace EventSourced\Serializer\ValueObject;
 
+use EventSourced\Serializer\Serializer;
 use EventSourced\ValueObject\AbstractComposite;
 
 class Composite extends AbstractSerializer
 {    
+    private $serializer;
+    
+    public function __construct(Serializer $serializer)
+    {
+        $this->serializer = $serializer;
+    }
+    
     public function serialize(AbstractComposite $object)
     {
         $pararameters = $this->get_constructor_parameters(get_class($object));
@@ -14,7 +22,7 @@ class Composite extends AbstractSerializer
         foreach ($pararameters as $index=>$parameter) {
             $name = $parameter->getName();
             $value = $value_objects[$index]; 
-            $serialized[$name] = $value->serialize();
+            $serialized[$name] = $this->serializer->serialize($value);
         }
 		return $serialized;
     }
@@ -26,8 +34,8 @@ class Composite extends AbstractSerializer
         foreach ($parameters as $parameter) {
             $name = $parameter->getName();
             $parameter_class = $parameter->getClass()->getName();
-            $deserialized_parameters[$name] = $parameter_class::deserialize(
-                $serialized[$name]
+            $deserialized_parameters[$name] = $this->serializer->deserialize(
+                $parameter_class, $serialized[$name]
             );
         }
         return $this->call_constructor($class, $deserialized_parameters);

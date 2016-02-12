@@ -16,7 +16,7 @@ class Serializer implements Contract\Serializer\Serializer, Contract\Serializer\
     public function __construct()
     {
         $this->single_value = new ValueObject\SingleValue();
-        $this->composite = new ValueObject\Composite();
+        $this->composite = new ValueObject\Composite($this);
         $this->collection = new ValueObject\Collection($this);
     }
     

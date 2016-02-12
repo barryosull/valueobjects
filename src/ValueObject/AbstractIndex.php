@@ -9,7 +9,7 @@ abstract class AbstractIndex  extends AbstractCollection
         $validator = $this->item_validator();
         foreach ($items as $item) {
             $this->assert()->is($validator, $item);
-            $this->collection[$item->id()->serialize()] = $item;
+            $this->collection[$item->id()->to_string()] = $item;
         }
 	}
 
@@ -19,19 +19,19 @@ abstract class AbstractIndex  extends AbstractCollection
         if ($this->exists($item->id())) {
             throw new \Exception("Entity already exists in index");
         }
-        $items[$item->id()->serialize()] = $item;
+        $items[$item->id()->to_string()] = $item;
         return new static($items);
     }
         
     public function exists($id)
     {
-        return isset($this->collection[$id->serialize()]);
+        return isset($this->collection[$id->to_string()]);
     }
         
     public function remove($id)
     {
         $items = $this->collection;
-        delete($this->collection[$id->id()]);
+        delete($this->collection[$id->to_string()]);
         return new static($items);
     }
     
@@ -41,7 +41,7 @@ abstract class AbstractIndex  extends AbstractCollection
         if (!$this->exists($item->id())) {
             throw new \Exception("Entity does not exist in index");
         }
-        $items[$item->id()->serialize()] = $item;
+        $items[$item->id()->to_string()] = $item;
         return new static($items);
     }
 }

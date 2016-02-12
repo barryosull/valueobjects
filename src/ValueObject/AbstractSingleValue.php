@@ -13,4 +13,10 @@ abstract class AbstractSingleValue extends AbstractValueObject
         $this->assert()->is($this->validator(), $value);
 		$this->value = $value;
 	}
+    
+    public function equals($valueobject) 
+	{
+		return $this->value == $valueobject->value 
+                && parent::equals($valueobject);
+	}
 }

@@ -11,8 +11,8 @@ abstract class AbstractOrderedCollection extends AbstractCollection
         for ($i = 0, $l = count($items); $i < $l-1; $i++) {
             $item_a = $items[$i];
             $item_b = $items[$i+1];
-            $validator = $this->order_validator($item_a->serialize());
-            $this->assert()->is($validator, $item_b->serialize());
+            $validator = $this->order_validator($item_a);
+            $this->assert()->is($validator, $item_b);
         } 
         parent::__construct($items);
     }

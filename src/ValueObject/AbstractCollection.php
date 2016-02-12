@@ -23,6 +23,16 @@ abstract class AbstractCollection extends AbstractValueObject
         }
         $this->collection = $items;
 	}
+    
+    public function equals($other_valueobject) 
+	{
+        $result = true;
+        foreach ($this->collection as $key=>$valueobject) {
+            $result = $result && 
+                $valueobject->equals($other_valueobject->collection[$key]);
+        }
+		return $result && parent::equals($other_valueobject);
+	}
 
     public function add($item) 
     {
