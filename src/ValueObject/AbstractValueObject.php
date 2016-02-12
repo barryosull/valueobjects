@@ -17,4 +17,14 @@ abstract class AbstractValueObject implements Contract\ValueObject
     {
         return new Assert(get_called_class());
     }
+    
+    public function serialize() 
+	{
+        return (new \EventSourced\Serializer\Serializer())->serialize($this);
+	}
+
+	public static function deserialize($value) 
+	{
+        return (new \EventSourced\Serializer\Serializer())->deserialize(get_called_class(),  $value);
+	}
 }

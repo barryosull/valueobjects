@@ -8,7 +8,7 @@ abstract class AbstractCollection extends AbstractValueObject
 {	
 	protected $collection = [];
     
-    abstract protected function collection_of_class();
+    abstract public function collection_of_class();
     
     protected function item_validator() 
     {
@@ -56,22 +56,4 @@ abstract class AbstractCollection extends AbstractValueObject
         }
         return new static($items);
     }
-    
-    public static function deserialize($serialized) 
-	{
-        $collection = new static([]);
-        $collection_of_class = $collection->collection_of_class();
-        foreach ($serialized as $value) {
-            $collection = $collection->add( $collection_of_class::deserialize($value) );
-        }
-		return $collection;
-	}
-    
-    public function serialize() 
-	{
-        $serialized = array_map(function($item){
-            return $item->serialize();
-        }, $this->collection);
-		return array_values($serialized);
-	}
 }

@@ -13,14 +13,4 @@ abstract class AbstractSingleValue extends AbstractValueObject
         $this->assert()->is($this->validator(), $value);
 		$this->value = $value;
 	}
-
-	public function serialize() 
-	{
-		return $this->value;
-	}
-
-	public static function deserialize($value) 
-	{
-		return new static($value);
-	}
 }
