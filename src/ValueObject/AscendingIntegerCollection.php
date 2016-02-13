@@ -6,7 +6,7 @@ use Respect\Validation\Validator;
 
 class AscendingIntegerCollection  extends AbstractOrderedCollection 
 {    
-    public function collection_of_class()
+    public function collection_of()
     {
         return Integer::class;
     }

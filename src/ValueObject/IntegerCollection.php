@@ -4,7 +4,7 @@ namespace EventSourced\ValueObject;
 
 class IntegerCollection extends AbstractCollection 
 {    
-    public function collection_of_class()
+    public function collection_of()
     {
         return Integer::class;
     }

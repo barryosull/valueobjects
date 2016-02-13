@@ -8,11 +8,11 @@ abstract class AbstractCollection extends AbstractValueObject
 {	
 	protected $collection = [];
     
-    abstract public function collection_of_class();
+    abstract public function collection_of();
     
     protected function item_validator() 
     {
-        return Validator::instance($this->collection_of_class());
+        return Validator::instance($this->collection_of());
     }
 
 	public function __construct(array $items) 

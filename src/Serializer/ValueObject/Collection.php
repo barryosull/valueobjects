@@ -26,7 +26,7 @@ class Collection extends AbstractSerializer
     public function deserialize($class, $serialized)
     {
         $collection = new $class([]);
-        $collection_of_class = $collection->collection_of_class();
+        $collection_of_class = $collection->collection_of();
         foreach ($serialized as $value) {
             $collection = $collection->add( 
                 $this->serializer->deserialize($collection_of_class, $value) 
