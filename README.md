@@ -83,7 +83,7 @@ use Respect\Validation\Validator;
 
 class AscendingIntegerCollection  extends AbstractOrderedCollection 
 {    
-    protected function collection_of_class()
+    protected function collection_of()
     {
         return Integer::class;
     }
@@ -105,19 +105,23 @@ $same = $float_a->equals($float_b);
 ```
 
 ### Serializing
-Our ValueObjects are intended to be used as part of our event sourcing framework, so it's important that ValueObjects can be serialized and deserialized.
-Thankfully, our abstract classes provide this functionality out of the box, so you don't have to worry. Simply extends those classes, and you have that functionality.
+ValueObjects are not meant to let you access the internal value, as they're purpose is to represent the value. This hard constraint makes domains consistent and clean, it forces best practice and stop lazy coding, which causes bugs.
+This begs the obvious question, how do you save these things? Well, we're created a serializer class that turns these ValueObjects into their base data structures. This serializer is intended to work with our abstract classes, so if you extend those, then you can serialize a ValueObject.
+For AbstractSingleValue based ValueObjects, it returns the base value, for AbstractComposite and AbstractCollection, it returns the tree structure as an array with key => values. Here's how it works.
 ```php
 $float = new Float(0.121);
-$serialized = $float->serialize();
+$serializer = new Serializer();
+$serialized = $serializer->serialize($float);
 ```
 
 ### Deserializing
-Once you've serialized a ValueObject, you'll want to deserialize it at some future time. To do that, pass the serialized result to the static deserialize function, and you'll get the full ValueObject back.
+Once you've serialized a ValueObject, you'll want to deserialize it at some future time. To do that, pass the serialized result to the deserialize function, type hinting the ValueObject class you want it to recreate, and you'll get the full ValueObject back.
 ```php
 $float = new Float(0.121);
-$serialized = $float->serialize();
-$float_again = Float::deserialize($serialized);
+$serializer = new Serializer();
+$serialized = $serializer->serialize($float);
+
+$float_again = $serializer->deserialize(Float:class, $serialized);
 ```
 
 ### Error Messages
