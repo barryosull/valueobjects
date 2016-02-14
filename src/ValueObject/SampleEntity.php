@@ -4,11 +4,11 @@ namespace EventSourced\ValueObject;
 
 class SampleEntity extends AbstractEntity
 {
-    public $date;
+    public $datetime;
     
-    public function __construct(UUID $id, Date $date) 
+    public function __construct(UUID $id, DateTime $datetime) 
     {
-        $this->date = $date;
-        parent::__construct($id, $date);
+        $this->datetime = $datetime;
+        parent::__construct($id, $datetime);
     }
 }
