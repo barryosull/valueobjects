@@ -8,7 +8,7 @@ class DateTime extends AbstractSingleValue
 {    
     protected function validator()
     {
-        return Validator::Date();
+        return Validator::Date()->length(11, null);
     }
     
     public function add_seconds(Integer $seconds)

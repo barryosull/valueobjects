@@ -4,7 +4,7 @@ use EventSourced\Assert;
 use EventSourced\ValueObject\DateTime;
 use EventSourced\ValueObject\Integer;
 
-class TestDate extends \PHPUnit_Framework_TestCase 
+class TestDateTime extends \PHPUnit_Framework_TestCase 
 {
     public function test_valid_value()
     {
@@ -23,5 +23,11 @@ class TestDate extends \PHPUnit_Framework_TestCase
         $new_date = $date->add_seconds( new Integer(3600));
         
         $this->assertTrue($new_date->equals( new DateTime("2013-01-01 01:00:00") ));
+    }
+    
+    public function test_date_must_have_time()
+    {
+        $this->setExpectedException(Assert\IsException::class);
+        new DateTime("2013-01-01");
     }
 }
