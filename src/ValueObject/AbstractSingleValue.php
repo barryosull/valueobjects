@@ -1,6 +1,7 @@
 <?php
 
 namespace EventSourced\ValueObject;
+use EventSourced\Contract\ValueObject;
 
 abstract class AbstractSingleValue extends AbstractValueObject
 {	
@@ -14,9 +15,9 @@ abstract class AbstractSingleValue extends AbstractValueObject
 		$this->value = $value;
 	}
     
-    public function equals($valueobject) 
+    public function equals(ValueObject $valueobject) 
 	{
-		return $this->value == $valueobject->value 
-                && parent::equals($valueobject);
+		return $this->is_same_class($valueobject)
+                && $this->value == $valueobject->value;
 	}
 }

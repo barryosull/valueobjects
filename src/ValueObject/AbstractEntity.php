@@ -2,6 +2,8 @@
 
 namespace EventSourced\ValueObject;
 
+use EventSourced\Contract\ValueObject;
+
 abstract class AbstractEntity extends AbstractComposite
 {	
     private $id;
@@ -16,5 +18,11 @@ abstract class AbstractEntity extends AbstractComposite
     public function id() 
     {
         return $this->id;
+    }
+    
+    public function equals(ValueObject $other_valueobject)
+    {
+        return $this->is_same_class($other_valueobject) 
+                && $this->id()->equals($other_valueobject->id());
     }
 }

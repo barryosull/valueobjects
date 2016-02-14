@@ -7,7 +7,7 @@ use EventSourced\Assert\Assert;
 
 abstract class AbstractValueObject implements Contract\ValueObject
 {	    
-    public function equals($valueobject) 
+    protected function is_same_class(Contract\ValueObject $valueobject) 
 	{
 		return (get_class($this) == get_class($valueobject));
 	}

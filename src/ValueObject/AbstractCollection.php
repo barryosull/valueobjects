@@ -3,6 +3,7 @@
 namespace EventSourced\ValueObject;
 
 use Respect\Validation\Validator;
+use EventSourced\Contract\ValueObject;
 
 abstract class AbstractCollection extends AbstractValueObject
 {	
@@ -24,14 +25,17 @@ abstract class AbstractCollection extends AbstractValueObject
         $this->collection = $items;
 	}
     
-    public function equals($other_valueobject) 
+    public function equals(ValueObject $other_valueobject) 
 	{
-        $result = true;
+        $result = $this->is_same_class($other_valueobject);
+        if (!$result) {
+            return $result;
+        }
         foreach ($this->collection as $key=>$valueobject) {
             $result = $result && 
                 $valueobject->equals($other_valueobject->collection[$key]);
         }
-		return $result && parent::equals($other_valueobject);
+		return $result;
 	}
 
     public function add($item) 

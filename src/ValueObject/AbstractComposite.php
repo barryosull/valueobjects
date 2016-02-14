@@ -2,6 +2,8 @@
 
 namespace EventSourced\ValueObject;
 
+use EventSourced\Contract\ValueObject;
+
 abstract class AbstractComposite extends AbstractValueObject
 {  
     protected $value_objects;
@@ -11,13 +13,16 @@ abstract class AbstractComposite extends AbstractValueObject
         $this->value_objects = func_get_args();
     }
     
-    public function equals($other_valueobject) 
+    public function equals(ValueObject $other_valueobject) 
 	{
-        $result = true;
+        $result = $this->is_same_class($other_valueobject);
+        if (!$result) {
+            return $result;
+        }
         foreach ($this->value_objects as $key=>$valueobject) {
             $result = $result && 
                 $valueobject->equals($other_valueobject->value_objects[$key]);
         }
-		return $result && parent::equals($other_valueobject);
+		return $result;
 	}
 }

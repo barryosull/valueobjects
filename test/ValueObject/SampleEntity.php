@@ -26,4 +26,10 @@ class TestSampleEntity extends \PHPUnit_Framework_TestCase
         $this->assertTrue($this->entity->date->equals($date));
     }
     
+    public function test_entity_equality_is_based_only_on_id()
+    {
+        $entity_2 = new SampleEntity(new UUID("ac9e4e83-5495-4a58-90d9-eeeaf3989bc8"), new Date('2014-01-20'));
+        $this->assertTrue($this->entity->equals($entity_2));
+    }
+    
 }
