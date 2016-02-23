@@ -6,18 +6,21 @@ use EventSourced\Contract;
 use EventSourced\ValueObject\AbstractSingleValue;
 use EventSourced\ValueObject\AbstractComposite;
 use EventSourced\ValueObject\AbstractCollection;
+use EventSourced\ValueObject\AbstractTreeNode;
 
 class Serializer implements Contract\Serializer\Serializer, Contract\Serializer\Deserializer 
 {
     private $single_value;
     private $composite;
     private $collection;
+    private $tree_node;
     
     public function __construct()
     {
         $this->single_value = new ValueObject\SingleValue();
         $this->composite = new ValueObject\Composite($this);
         $this->collection = new ValueObject\Collection($this);
+        $this->tree_node = new ValueObject\TreeNode($this);
     }
     
     public function deserialize($class, $parameters)
@@ -34,6 +37,9 @@ class Serializer implements Contract\Serializer\Serializer, Contract\Serializer\
     
     private function serializer_repo_fetch($class)
     {
+        if ($this->is_instance_of($class, AbstractTreeNode::class)) {
+            return $this->tree_node;
+        }
         if ($this->is_instance_of($class, AbstractSingleValue::class)) {
             return $this->single_value;
         } 
@@ -43,6 +49,7 @@ class Serializer implements Contract\Serializer\Serializer, Contract\Serializer\
         if ($this->is_instance_of($class, AbstractCollection::class)) {
             return $this->collection;
         }
+        
         throw new \Exception("No serializer found for class ".$class);
     }
     
