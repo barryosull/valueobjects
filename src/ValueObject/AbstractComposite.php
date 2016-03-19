@@ -2,7 +2,7 @@
 
 namespace EventSourced\ValueObject;
 
-use EventSourced\Contract\ValueObject;
+use EventSourced\Contract\ValueObject\ValueObject;
 
 abstract class AbstractComposite extends AbstractValueObject
 {  

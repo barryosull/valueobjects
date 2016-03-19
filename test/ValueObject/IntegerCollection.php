@@ -2,7 +2,6 @@
 
 use EventSourced\Assert;
 use EventSourced\ValueObject\Integer;
-use EventSourced\ValueObject\Float;
 use EventSourced\ValueObject\IntegerCollection;
 
 class TestIntegerCollection extends \PHPUnit_Framework_TestCase 
@@ -18,12 +17,7 @@ class TestIntegerCollection extends \PHPUnit_Framework_TestCase
         new IntegerCollection(["sadsasdasd", "sdfsdfsdf"]);
     }
     
-    public function test_float_value()
-    {
-        $this->setExpectedException(Assert\IsException::class);
-        new IntegerCollection([new Float(0.2132)]);
-    }
-    
+   
     public function test_remove()
     {
         $collection = $this->test_valid_value()->remove(new Integer(7));        

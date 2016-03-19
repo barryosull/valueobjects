@@ -27,4 +27,10 @@ class TestInteger extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(Assert\IsException::class);
         new Integer(12132.2132);
     }
+    
+    public function test_access_value()
+    {
+        $integer = new Integer(5);
+        $this->assertEquals(5, $integer->value());
+    }
 }

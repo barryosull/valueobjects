@@ -3,7 +3,7 @@
 namespace EventSourced\ValueObject;
 
 use Respect\Validation\Validator;
-use EventSourced\Contract\ValueObject;
+use EventSourced\Contract\ValueObject\ValueObject;
 
 abstract class AbstractCollection extends AbstractValueObject
 {	
