@@ -33,4 +33,24 @@ class TestInteger extends \PHPUnit_Framework_TestCase
         $integer = new Integer(5);
         $this->assertEquals(5, $integer->value());
     }
+    
+    public function test_add()
+    {
+        $int_a = new Integer(5);
+        $int_b = new Integer(3);
+        $this->assertTrue($int_a->add($int_b)->equals(new Integer(8)));
+    }
+    
+    public function test_subtract()
+    {
+        $int_a = new Integer(5);
+        $int_b = new Integer(3);
+        $this->assertTrue($int_a->subtract($int_b)->equals(new Integer(2)));
+    }
+    
+    public function test_reset()
+    {
+        $int = new Integer(5);
+        $this->assertTrue($int->reset()->equals(new Integer(0)));
+    }
 }

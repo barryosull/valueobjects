@@ -11,8 +11,36 @@ class Integer extends Type\AbstractSingleValue
         return Validator::intVal();
     }
     
-    public function is_greater_than(Integer $integer)
+    public function reset()
     {
-        return $this->value > $integer->value;
+        return new Integer(0);
+    }
+
+    public function increment()
+    {
+        $new_value = $this->value() + 1;
+
+        return new Integer($new_value);
+    }
+
+    public function decrement()
+    {
+        $new_value = $this->value() - 1;
+
+        return new Integer($new_value);
+    }
+
+    public function add(Integer $other)
+    {
+        return new Integer(
+            $this->value() + $other->value()
+        );
+    }
+    
+    public function subtract(Integer $other)
+    {
+        return new Integer(
+            $this->value() - $other->value()
+        );
     }
 }
