@@ -1,7 +1,7 @@
 <?php
 
-use EventSourced\Assert;
-use EventSourced\ValueObject\Integer;
+use EventSourced\ValueObject\Assert;
+use EventSourced\ValueObject\ValueObject\Integer;
 
 class TestInteger extends \PHPUnit_Framework_TestCase 
 {

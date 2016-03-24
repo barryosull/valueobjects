@@ -1,8 +1,8 @@
 <?php
 
-namespace EventSourced\Test\ValueObject;
+namespace EventSourced\ValueObject\Test\ValueObject;
 
-use EventSourced\ValueObject\EmailAddress;
+use EventSourced\ValueObject\ValueObject\EmailAddress;
 
 class TestEmailAddress extends \PHPUnit_Framework_TestCase 
 {
@@ -13,7 +13,7 @@ class TestEmailAddress extends \PHPUnit_Framework_TestCase
     
     public function test_invalid_address()
     {
-        $this->setExpectedException(\EventSourced\Assert\IsException::class);
+        $this->setExpectedException(\EventSourced\ValueObject\Assert\IsException::class);
         new EmailAddress("invalid@xfdsfsdf");
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace EventSourced\ValueObject;
+namespace EventSourced\ValueObject\ValueObject;
 
 class SampleEntityIndex extends Type\AbstractIndex
 {    

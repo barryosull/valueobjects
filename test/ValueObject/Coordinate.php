@@ -1,9 +1,9 @@
 <?php
 
-namespace EventSourced\Test\ValueObject;
+namespace EventSourced\ValueObject\Test\ValueObject;
 
-use EventSourced\ValueObject\Coordinate;
-use EventSourced\Assert;
+use EventSourced\ValueObject\ValueObject\Coordinate;
+use EventSourced\ValueObject\Assert;
 
 class TestCoordinate extends \PHPUnit_Framework_TestCase 
 {
@@ -22,7 +22,7 @@ class TestCoordinate extends \PHPUnit_Framework_TestCase
     
     public function test_over_max_range() 
     {
-        $this->setExpectedException(\EventSourced\Assert\IsException::class);
+        $this->setExpectedException(\EventSourced\ValueObject\Assert\IsException::class);
         new Coordinate(90.00001);
     }
     
@@ -41,7 +41,7 @@ class TestCoordinate extends \PHPUnit_Framework_TestCase
     
     public function test_under_min_range() 
     {
-        $this->setExpectedException(\EventSourced\Assert\IsException::class);
+        $this->setExpectedException(\EventSourced\ValueObject\Assert\IsException::class);
         new Coordinate(-90.00001);
     }
     

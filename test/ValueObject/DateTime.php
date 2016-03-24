@@ -1,8 +1,8 @@
 <?php
 
-use EventSourced\Assert;
-use EventSourced\ValueObject\DateTime;
-use EventSourced\ValueObject\Integer;
+use EventSourced\ValueObject\Assert;
+use EventSourced\ValueObject\ValueObject\DateTime;
+use EventSourced\ValueObject\ValueObject\Integer;
 
 class TestDateTime extends \PHPUnit_Framework_TestCase 
 {

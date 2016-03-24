@@ -1,7 +1,7 @@
 <?php
 
 
-namespace EventSourced\Assert;
+namespace EventSourced\ValueObject\Assert;
 
 class Exception extends \Exception 
 {

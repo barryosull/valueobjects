@@ -1,7 +1,7 @@
 <?php
 
-use EventSourced\Assert;
-use EventSourced\ValueObject\CurrencyCode;
+use EventSourced\ValueObject\Assert;
+use EventSourced\ValueObject\ValueObject\CurrencyCode;
 
 class TestCurrencyCode extends \PHPUnit_Framework_TestCase 
 {

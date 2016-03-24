@@ -1,11 +1,11 @@
 <?php
 
-namespace EventSourced\Deserializer;
+namespace EventSourced\ValueObject\Deserializer;
 
-use EventSourced\Contract;
-use EventSourced\ValueObject\Type;
+use EventSourced\ValueObject\Contracts;
+use EventSourced\ValueObject\ValueObject\Type;
 
-class Deserializer implements Contract\Deserializer 
+class Deserializer implements Contracts\Deserializer 
 {
     private $single_value;
     private $composite;

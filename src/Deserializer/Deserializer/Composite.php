@@ -1,9 +1,9 @@
 <?php
 
-namespace EventSourced\Deserializer\Deserializer;
+namespace EventSourced\ValueObject\Deserializer\Deserializer;
 
-use EventSourced\Deserializer\Deserializer;
-use EventSourced\Deserializer\Reflector;
+use EventSourced\ValueObject\Deserializer\Deserializer;
+use EventSourced\ValueObject\Deserializer\Reflector;
 
 class Composite
 {    

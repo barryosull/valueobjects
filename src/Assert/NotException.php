@@ -1,7 +1,7 @@
 <?php
 
-namespace EventSourced\Assert;
+namespace EventSourced\ValueObject\Assert;
 
-use EventSourced\Invariant;
+use EventSourced\ValueObject\Invariant;
 
 class NotException extends Exception {}

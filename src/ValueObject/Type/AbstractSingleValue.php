@@ -1,8 +1,8 @@
 <?php
 
-namespace EventSourced\ValueObject\Type;
+namespace EventSourced\ValueObject\ValueObject\Type;
 
-use EventSourced\Contract\ValueObject;
+use EventSourced\ValueObject\Contracts\ValueObject;
 
 abstract class AbstractSingleValue extends AbstractValueObject
 {	

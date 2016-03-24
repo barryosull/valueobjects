@@ -1,6 +1,6 @@
 <?php
 
-namespace EventSourced\Serializer;
+namespace EventSourced\ValueObject\Serializer;
 
 interface Reflector 
 {    

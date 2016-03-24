@@ -1,8 +1,8 @@
 <?php
 
-namespace EventSourced\ValueObject\Type;
+namespace EventSourced\ValueObject\ValueObject\Type;
 
-use EventSourced\Contract\ValueObject;
+use EventSourced\ValueObject\Contracts\ValueObject;
 use Respect\Validation\Validator;
 
 abstract class AbstractSet extends AbstractValueObject

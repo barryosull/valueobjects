@@ -1,6 +1,6 @@
 <?php
 
-namespace EventSourced\Deserializer\Deserializer;
+namespace EventSourced\ValueObject\Deserializer\Deserializer;
 
 class SingleValue
 {        

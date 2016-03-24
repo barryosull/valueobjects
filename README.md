@@ -13,7 +13,7 @@ These are ValueObjects that are given a single value that they must validate. Fo
 
 #### Making a new Single Value VO
 ```php
-use EventSourced\ValueObject;
+use EventSourced\ValueObject\ValueObject;
 use Respect\Validation\Validator;
 
 class Integer extends ValueObject\AbstractSingleValue 
@@ -31,7 +31,7 @@ ValueObjects use validators to do their job. Instead of writing our own library,
 ### Chaining Validators
 Respect Validators are chainable, so building complex validators for your value objects is a piece of cake.
 ```php
-use EventSourced\ValueObject;
+use EventSourced\ValueObject\ValueObject;
 use Respect\Validation\Validator;
 
 class Coordinate extends ValueObject\AbstractSingleValue 
@@ -49,7 +49,7 @@ An example is a locations GPS coordinate, it's actually a composite of two Coord
 
 #### Making a composite ValueObject
 ```php
-use EventSourced\ValueObject;
+use EventSourced\ValueObject\ValueObject;
 
 class GPSCoordinates extends ValueObject\AbstractComposite 
 {   
@@ -64,7 +64,7 @@ That's it, the base class figures out the rest.
 ### Collections
 Sometimes you'll want to have a collection of ValueObjects. Now, you can't use a standard array, because the deserializer has to know what type of ValueObject is in the collection. That's why we created a simple helper class for creating strongly typed collections of ValueObjects.
 ```php
-namespace EventSourced\ValueObject;
+namespace EventSourced\ValueObject\ValueObject;
 
 class IntegerCollection extends AbstractCollection 
 {    

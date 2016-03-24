@@ -1,9 +1,9 @@
 <?php
 
-namespace EventSourced\Serializer\Serializer;
+namespace EventSourced\ValueObject\Serializer\Serializer;
 
-use EventSourced\Serializer\Serializer;
-use EventSourced\ValueObject\Type\AbstractCollection;
+use EventSourced\ValueObject\Serializer\Serializer;
+use EventSourced\ValueObject\ValueObject\Type\AbstractCollection;
 
 class Collection
 {    

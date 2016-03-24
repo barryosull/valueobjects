@@ -1,10 +1,11 @@
 <?php
 
-namespace EventSourced\ValueObject;
+namespace EventSourced\ValueObject\ValueObject;
 
 use Respect\Validation\Validator;
+use EventSourced\ValueObject\Contracts;
 
-class DateTime extends Type\AbstractSingleValue 
+class DateTime extends Type\AbstractSingleValue implements Contracts\ValueObject\DateTime
 {    
     protected function validator()
     {

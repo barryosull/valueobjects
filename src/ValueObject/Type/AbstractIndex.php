@@ -1,8 +1,8 @@
 <?php
 
-namespace EventSourced\ValueObject\Type;
+namespace EventSourced\ValueObject\ValueObject\Type;
 
-use EventSourced\ValueObject\Type\AbstractSingleValue;
+use EventSourced\ValueObject\ValueObject\Type\AbstractSingleValue;
 
 abstract class AbstractIndex extends AbstractSet
 {    

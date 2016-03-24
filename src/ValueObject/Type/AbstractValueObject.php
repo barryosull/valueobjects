@@ -1,9 +1,9 @@
 <?php
 
-namespace EventSourced\ValueObject\Type;
+namespace EventSourced\ValueObject\ValueObject\Type;
 
-use EventSourced\Contract\ValueObject;
-use EventSourced\Assert\Assert;
+use EventSourced\ValueObject\Contracts\ValueObject;
+use EventSourced\ValueObject\Assert\Assert;
 
 abstract class AbstractValueObject implements ValueObject
 {	    

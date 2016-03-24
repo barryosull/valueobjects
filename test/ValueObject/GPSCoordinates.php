@@ -1,9 +1,9 @@
 <?php
 
-namespace EventSourced\Test\ValueObject;
+namespace EventSourced\ValueObject\Test\ValueObject;
 
-use EventSourced\ValueObject\GPSCoordinates;
-use EventSourced\ValueObject\Coordinate;
+use EventSourced\ValueObject\ValueObject\GPSCoordinates;
+use EventSourced\ValueObject\ValueObject\Coordinate;
 
 class TestGPSCoordinates extends \PHPUnit_Framework_TestCase 
 {

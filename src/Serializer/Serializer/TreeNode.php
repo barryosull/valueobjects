@@ -1,10 +1,10 @@
 <?php
 
-namespace EventSourced\Serializer\Serializer;
+namespace EventSourced\ValueObject\Serializer\Serializer;
 
-use EventSourced\ValueObject\Type\AbstractTreeNode;
-use EventSourced\Serializer\Serializer;
-use EventSourced\Serializer\Reflector;
+use EventSourced\ValueObject\ValueObject\Type\AbstractTreeNode;
+use EventSourced\ValueObject\Serializer\Serializer;
+use EventSourced\ValueObject\Serializer\Reflector;
 
 class TreeNode
 {    

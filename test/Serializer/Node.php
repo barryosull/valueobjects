@@ -1,9 +1,9 @@
 <?php
 
-use EventSourced\ValueObject\Integer;
-use EventSourced\ValueObject\IntegerCollection;
-use EventSourced\ValueObject\IntegerTreeNode;
-use EventSourced\Reflector\Reflector;
+use EventSourced\ValueObject\ValueObject\Integer;
+use EventSourced\ValueObject\ValueObject\IntegerCollection;
+use EventSourced\ValueObject\ValueObject\IntegerTreeNode;
+use EventSourced\ValueObject\Reflector\Reflector;
 
 class TestTreeNode extends \PHPUnit_Framework_TestCase 
 {    
@@ -25,8 +25,8 @@ class TestTreeNode extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $reflector = new Reflector();
-        $this->serializer = new \EventSourced\Serializer\Serializer($reflector);
-        $this->deserializer = new \EventSourced\Deserializer\Deserializer($reflector);
+        $this->serializer = new \EventSourced\ValueObject\Serializer\Serializer($reflector);
+        $this->deserializer = new \EventSourced\ValueObject\Deserializer\Deserializer($reflector);
         
         $value1 = new Integer(5);
         $this->integer = new IntegerTreeNode($value1);

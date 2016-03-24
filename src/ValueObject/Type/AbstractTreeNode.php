@@ -1,6 +1,6 @@
 <?php
 
-namespace EventSourced\ValueObject\Type;
+namespace EventSourced\ValueObject\ValueObject\Type;
 
 use Respect\Validation\Validator;
 

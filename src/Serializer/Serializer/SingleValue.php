@@ -1,9 +1,9 @@
 <?php
 
-namespace EventSourced\Serializer\Serializer;
+namespace EventSourced\ValueObject\Serializer\Serializer;
 
-use EventSourced\ValueObject\Type\AbstractSingleValue;
-use EventSourced\Serializer\Reflector;
+use EventSourced\ValueObject\ValueObject\Type\AbstractSingleValue;
+use EventSourced\ValueObject\Serializer\Reflector;
 
 class SingleValue
 {    

@@ -1,8 +1,8 @@
 <?php
 
-namespace EventSourced\Deserializer\Deserializer;
+namespace EventSourced\ValueObject\Deserializer\Deserializer;
 
-use EventSourced\Deserializer\Deserializer;
+use EventSourced\ValueObject\Deserializer\Deserializer;
 
 class TreeNode
 {    

@@ -1,9 +1,9 @@
 <?php
 
-namespace EventSourced\Reflector;
+namespace EventSourced\ValueObject\Reflector;
 
-use EventSourced\Deserializer;
-use EventSourced\Serializer;
+use EventSourced\ValueObject\Deserializer;
+use EventSourced\ValueObject\Serializer;
 
 class Reflector implements Deserializer\Reflector, Serializer\Reflector
 {

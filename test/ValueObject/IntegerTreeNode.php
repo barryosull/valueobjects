@@ -1,8 +1,8 @@
 <?php
 
-use EventSourced\Assert;
-use EventSourced\ValueObject\Integer;
-use EventSourced\ValueObject\IntegerTreeNode;
+use EventSourced\ValueObject\Assert;
+use EventSourced\ValueObject\ValueObject\Integer;
+use EventSourced\ValueObject\ValueObject\IntegerTreeNode;
 
 class TestIntegerTreeNode extends \PHPUnit_Framework_TestCase 
 {
@@ -13,7 +13,7 @@ class TestIntegerTreeNode extends \PHPUnit_Framework_TestCase
     
     public function test_accepts_integer_collection()
     {
-        $collection = new \EventSourced\ValueObject\IntegerCollection([
+        $collection = new \EventSourced\ValueObject\ValueObject\IntegerCollection([
             new Integer(5)
         ]);
         return new IntegerTreeNode($collection);
@@ -23,7 +23,7 @@ class TestIntegerTreeNode extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(Assert\IsException::class);
         new IntegerTreeNode( 
-            new EventSourced\ValueObject\EmailAddress("dfasfd@sdfsdf.com")
+            new EventSourced\ValueObject\ValueObject\EmailAddress("dfasfd@sdfsdf.com")
         );
     }
     

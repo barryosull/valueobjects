@@ -1,9 +1,9 @@
 <?php
 
-namespace EventSourced\Test\ValueObject;
+namespace EventSourced\ValueObject\Test\ValueObject;
 
-use EventSourced\ValueObject\Coordinate;
-use EventSourced\Reflector\Reflector;
+use EventSourced\ValueObject\ValueObject\Coordinate;
+use EventSourced\ValueObject\Reflector\Reflector;
 
 class TestSingleValue extends \PHPUnit_Framework_TestCase 
 {
@@ -13,8 +13,8 @@ class TestSingleValue extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $reflector = new Reflector();
-        $this->serializer = new \EventSourced\Serializer\Serializer($reflector);
-        $this->deserializer = new \EventSourced\Deserializer\Deserializer($reflector);
+        $this->serializer = new \EventSourced\ValueObject\Serializer\Serializer($reflector);
+        $this->deserializer = new \EventSourced\ValueObject\Deserializer\Deserializer($reflector);
         parent::setUp();
     }
 

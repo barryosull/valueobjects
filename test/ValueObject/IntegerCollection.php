@@ -1,8 +1,8 @@
 <?php
 
-use EventSourced\Assert;
-use EventSourced\ValueObject\Integer;
-use EventSourced\ValueObject\IntegerCollection;
+use EventSourced\ValueObject\Assert;
+use EventSourced\ValueObject\ValueObject\Integer;
+use EventSourced\ValueObject\ValueObject\IntegerCollection;
 
 class TestIntegerCollection extends \PHPUnit_Framework_TestCase 
 {    

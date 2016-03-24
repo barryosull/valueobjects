@@ -1,8 +1,8 @@
 <?php
 
-use EventSourced\ValueObject\UUID;
-use EventSourced\ValueObject\Date;
-use EventSourced\ValueObject\SampleEntity;
+use EventSourced\ValueObject\ValueObject\Uuid;
+use EventSourced\ValueObject\ValueObject\Date;
+use EventSourced\ValueObject\ValueObject\SampleEntity;
 
 class TestSampleEntity extends \PHPUnit_Framework_TestCase 
 {
@@ -10,7 +10,7 @@ class TestSampleEntity extends \PHPUnit_Framework_TestCase
     
     public function setUp()
     {
-        $this->entity = new SampleEntity(new UUID("ac9e4e83-5495-4a58-90d9-eeeaf3989bc8"), new Date('2012-01-20'));
+        $this->entity = new SampleEntity(new Uuid("ac9e4e83-5495-4a58-90d9-eeeaf3989bc8"), new Date('2012-01-20'));
     }
         
     public function test_access_value() 
@@ -27,7 +27,7 @@ class TestSampleEntity extends \PHPUnit_Framework_TestCase
     
     public function test_entity_equality_is_based_only_on_id()
     {
-        $entity_2 = new SampleEntity(new UUID("ac9e4e83-5495-4a58-90d9-eeeaf3989bc8"), new Date('2014-01-20'));
+        $entity_2 = new SampleEntity(new Uuid("ac9e4e83-5495-4a58-90d9-eeeaf3989bc8"), new Date('2014-01-20'));
         $this->assertTrue($this->entity->equals($entity_2));
     }
     

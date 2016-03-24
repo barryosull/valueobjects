@@ -1,10 +1,10 @@
 <?php
 
-namespace EventSourced\Serializer\Serializer;
+namespace EventSourced\ValueObject\Serializer\Serializer;
 
-use EventSourced\Serializer\Serializer;
-use EventSourced\ValueObject\Type\AbstractComposite;
-use EventSourced\Serializer\Reflector;
+use EventSourced\ValueObject\Serializer\Serializer;
+use EventSourced\ValueObject\ValueObject\Type\AbstractComposite;
+use EventSourced\ValueObject\Serializer\Reflector;
 
 class Composite
 {    
