@@ -4,7 +4,7 @@ namespace EventSourced\ValueObject;
 
 use Respect\Validation\Validator;
 
-class DateTime extends AbstractSingleValue 
+class DateTime extends Type\AbstractSingleValue 
 {    
     protected function validator()
     {

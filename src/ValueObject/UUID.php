@@ -4,7 +4,7 @@ namespace EventSourced\ValueObject;
 
 use Respect\Validation\Validator;
 
-class UUID extends AbstractSingleValue 
+class UUID extends Type\AbstractSingleValue 
 {    
     protected function validator()
     {

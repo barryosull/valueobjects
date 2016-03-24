@@ -2,7 +2,7 @@
 
 namespace EventSourced\ValueObject;
 
-class IntegerCollection extends AbstractCollection 
+class IntegerCollection extends Type\AbstractCollection 
 {    
     public function collection_of()
     {

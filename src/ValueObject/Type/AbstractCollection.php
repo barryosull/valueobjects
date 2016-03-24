@@ -1,6 +1,6 @@
 <?php
 
-namespace EventSourced\ValueObject;
+namespace EventSourced\ValueObject\Type;
 
 abstract class AbstractCollection extends AbstractSet
 {	    

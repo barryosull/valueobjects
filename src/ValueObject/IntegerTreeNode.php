@@ -2,7 +2,7 @@
 
 namespace EventSourced\ValueObject;
 
-class IntegerTreeNode extends AbstractTreeNode 
+class IntegerTreeNode extends Type\AbstractTreeNode 
 {    
     static protected function accepts()
     {

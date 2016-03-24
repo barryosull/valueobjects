@@ -2,7 +2,7 @@
 
 namespace EventSourced\ValueObject;
 
-class SampleEntity extends AbstractEntity
+class SampleEntity extends Type\AbstractEntity
 {
     public $date;
     

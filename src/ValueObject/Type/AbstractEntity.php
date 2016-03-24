@@ -1,8 +1,8 @@
 <?php
 
-namespace EventSourced\ValueObject;
+namespace EventSourced\ValueObject\Type;
 
-use EventSourced\Contract\ValueObject\ValueObject;
+use EventSourced\Contract\ValueObject;
 
 abstract class AbstractEntity extends AbstractComposite
 {	

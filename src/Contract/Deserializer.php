@@ -1,6 +1,6 @@
 <?php 
 
-namespace EventSourced\Contract\Serializer;
+namespace EventSourced\Contract;
 
 interface Deserializer
 {

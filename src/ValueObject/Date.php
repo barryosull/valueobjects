@@ -4,7 +4,7 @@ namespace EventSourced\ValueObject;
 
 use Respect\Validation\Validator;
 
-class Date extends AbstractSingleValue 
+class Date extends Type\AbstractSingleValue 
 {    
     public function __construct($value)
     {

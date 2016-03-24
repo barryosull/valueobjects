@@ -4,7 +4,7 @@ namespace EventSourced\ValueObject;
 
 use Respect\Validation\Validator;
 
-class EmailAddress extends AbstractSingleValue
+class EmailAddress extends Type\AbstractSingleValue
 {        
     protected function validator()
     {

@@ -4,4 +4,4 @@ namespace EventSourced\Assert;
 
 use EventSourced\Invariant;
 
-class IsException extends Invariant\Exception {}
+class IsException extends Exception {}

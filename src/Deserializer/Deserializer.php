@@ -1,11 +1,11 @@
 <?php
 
-namespace EventSourced\Serializer;
+namespace EventSourced\Deserializer;
 
 use EventSourced\Contract;
 use EventSourced\ValueObject\Type;
 
-class Serializer implements Contract\Serializer
+class Deserializer implements Contract\Deserializer 
 {
     private $single_value;
     private $composite;
@@ -14,19 +14,19 @@ class Serializer implements Contract\Serializer
     
     public function __construct(Reflector $reflector)
     {
-        $this->single_value = new Serializer\SingleValue($reflector);
-        $this->composite = new Serializer\Composite($this, $reflector);
-        $this->collection = new Serializer\Collection($this);
-        $this->tree_node = new Serializer\TreeNode($this, $reflector);
-    }
-
-    public function serialize($object)
-    {
-        $serializer = $this->serializer_repo_fetch(get_class($object));
-        return $serializer->serialize($object);
+        $this->single_value = new Deserializer\SingleValue();
+        $this->composite = new Deserializer\Composite($this, $reflector);
+        $this->collection = new Deserializer\Collection($this);
+        $this->tree_node = new Deserializer\TreeNode($this);
     }
     
-    private function serializer_repo_fetch($class)
+    public function deserialize($class, $parameters)
+    {
+        $serializer = $this->deserializer_repo_fetch($class);
+        return $serializer->deserialize($class, $parameters);
+    }
+ 
+    private function deserializer_repo_fetch($class)
     {
         if ($this->is_instance_of($class, Type\AbstractTreeNode::class)) {
             return $this->tree_node;
@@ -41,7 +41,7 @@ class Serializer implements Contract\Serializer
             return $this->collection;
         }
         
-        throw new \Exception("No serializer found for class ".$class);
+        throw new \Exception("No deserializer found for class ".$class);
     }
     
     private function is_instance_of($class, $class_or_interface) 

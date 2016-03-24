@@ -2,7 +2,7 @@
 
 namespace EventSourced\ValueObject;
 
-class GPSCoordinates extends AbstractComposite 
+class GPSCoordinates extends Type\AbstractComposite 
 {   
     private $latitude;
     private $longitude;

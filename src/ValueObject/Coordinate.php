@@ -4,7 +4,7 @@ namespace EventSourced\ValueObject;
 
 use Respect\Validation\Validator;
 
-class Coordinate extends AbstractSingleValue 
+class Coordinate extends Type\AbstractSingleValue 
 {    
     protected function validator()
     {

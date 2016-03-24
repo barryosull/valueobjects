@@ -1,6 +1,7 @@
 <?php
 
-namespace EventSourced\Invariant;
+
+namespace EventSourced\Assert;
 
 class Exception extends \Exception 
 {

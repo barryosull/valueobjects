@@ -4,7 +4,7 @@ namespace EventSourced\ValueObject;
 
 use Respect\Validation\Validator;
 
-class CurrencyCode extends AbstractSingleValue 
+class CurrencyCode extends Type\AbstractSingleValue 
 {    
     protected function validator()
     {

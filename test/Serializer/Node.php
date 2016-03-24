@@ -3,10 +3,12 @@
 use EventSourced\ValueObject\Integer;
 use EventSourced\ValueObject\IntegerCollection;
 use EventSourced\ValueObject\IntegerTreeNode;
+use EventSourced\Reflector\Reflector;
 
 class TestTreeNode extends \PHPUnit_Framework_TestCase 
 {    
     private $serializer;
+    private $deserializer;
     private $integer;
     private $collection;
     
@@ -22,7 +24,9 @@ class TestTreeNode extends \PHPUnit_Framework_TestCase
     
     public function setUp()
     {
-        $this->serializer = new \EventSourced\Serializer\Serializer();
+        $reflector = new Reflector();
+        $this->serializer = new \EventSourced\Serializer\Serializer($reflector);
+        $this->deserializer = new \EventSourced\Deserializer\Deserializer($reflector);
         
         $value1 = new Integer(5);
         $this->integer = new IntegerTreeNode($value1);
@@ -38,13 +42,13 @@ class TestTreeNode extends \PHPUnit_Framework_TestCase
     
     public function test_deserialize_collection()
     {
-        $collection = $this->serializer->deserialize(IntegerTreeNode::class, $this->deserialized_collection);
+        $collection = $this->deserializer->deserialize(IntegerTreeNode::class, $this->deserialized_collection);
         $this->assertTrue($this->collection->equals($collection));
     }
 
     public function test_deserialize_integer()
     {
-        $integer = $this->serializer->deserialize(IntegerTreeNode::class, $this->deserialized_integer);
+        $integer = $this->deserializer->deserialize(IntegerTreeNode::class, $this->deserialized_integer);
         $this->assertTrue($this->integer->equals($integer));
     }
 }

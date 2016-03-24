@@ -1,10 +1,13 @@
 <?php
 
-namespace EventSourced\Serializer\ValueObject;
+namespace EventSourced\Reflector;
 
-class AbstractSerializer 
-{    
-    protected function get_private_property($object, $property_name)
+use EventSourced\Deserializer;
+use EventSourced\Serializer;
+
+class Reflector implements Deserializer\Reflector, Serializer\Reflector
+{
+    public function get_private_property($object, $property_name)
     {
         $reflection = $this->relection_factory(get_class($object));
         $property = $reflection->getProperty($property_name);
@@ -12,16 +15,16 @@ class AbstractSerializer
         return $property->getValue($object);
     }
     
-    protected function get_constructor_parameters($class)
-    {
-        $reflection = $this->relection_factory($class);
-        return $reflection->getConstructor()->getParameters();
-    }
-        
-    protected function call_constructor($class, $arguments)
+    public function call_constructor($class, array $arguments)
     {
         $reflection = $this->relection_factory($class);
         return $reflection->newInstanceArgs($arguments);
+    }
+    
+    public function get_constructor_parameters($class)
+    {
+        $reflection = $this->relection_factory($class);
+        return $reflection->getConstructor()->getParameters();
     }
     
     private static $vo_to_reflection_cache = [];

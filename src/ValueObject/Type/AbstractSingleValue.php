@@ -1,8 +1,8 @@
 <?php
 
-namespace EventSourced\ValueObject;
+namespace EventSourced\ValueObject\Type;
 
-use EventSourced\Contract\ValueObject\ValueObject;
+use EventSourced\Contract\ValueObject;
 
 abstract class AbstractSingleValue extends AbstractValueObject
 {	
@@ -19,7 +19,7 @@ abstract class AbstractSingleValue extends AbstractValueObject
     public function equals(ValueObject $valueobject) 
 	{
 		return $this->is_same_class($valueobject)
-                && $this->value == $valueobject->value;
+            && $this->value == $valueobject->value;
 	}
     
     public function value()

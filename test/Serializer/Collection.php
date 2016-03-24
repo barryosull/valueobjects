@@ -2,14 +2,18 @@
 
 use EventSourced\ValueObject\Integer;
 use EventSourced\ValueObject\IntegerCollection;
+use EventSourced\Reflector\Reflector;
 
 class TestCollection extends \PHPUnit_Framework_TestCase 
 {
     private $serializer;
+    private $deserializer;
     
     public function setUp()
     {
-        $this->serializer = new \EventSourced\Serializer\Serializer();
+        $reflector = new Reflector();
+        $this->serializer = new \EventSourced\Serializer\Serializer($reflector);
+        $this->deserializer = new \EventSourced\Deserializer\Deserializer($reflector);
         parent::setUp();
     }
 
@@ -28,7 +32,7 @@ class TestCollection extends \PHPUnit_Framework_TestCase
     {
         $collection = $this->collection();
         $serialized = $this->serializer->serialize($this->collection());
-        $deserialized = $this->serializer->deserialize(IntegerCollection::class, $serialized);
+        $deserialized = $this->deserializer->deserialize(IntegerCollection::class, $serialized);
         $this->assertTrue($collection->equals($deserialized));
     }
 }
