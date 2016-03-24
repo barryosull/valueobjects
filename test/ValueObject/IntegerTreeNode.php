@@ -39,6 +39,6 @@ class TestIntegerTreeNode extends \PHPUnit_Framework_TestCase
     public function test_access_value()
     {
         $node = new IntegerTreeNode(new Integer(5));
-        dd($node->value());    
+        $this->assertTrue($node->value()->equals(new Integer(5)));
     }
 }

@@ -16,7 +16,7 @@ class Collection extends AbstractSerializer
     
     public function serialize(AbstractCollection $object)
     {
-        $collection = $this->get_private_property($object, 'collection');
+        $collection = $object->collection();
         $serialized = array_map(function($item){
             return $this->serializer->serialize($item);
         }, $collection);

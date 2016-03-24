@@ -1,6 +1,5 @@
 <?php
 
-use EventSourced\Assert;
 use EventSourced\ValueObject\UUID;
 use EventSourced\ValueObject\Date;
 use EventSourced\ValueObject\SampleEntity;

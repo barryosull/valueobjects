@@ -5,10 +5,12 @@ use EventSourced\ValueObject\Integer;
 use EventSourced\ValueObject\IntegerCollection;
 
 class TestIntegerCollection extends \PHPUnit_Framework_TestCase 
-{
-    public function test_valid_value()
+{    
+    private $collection;
+    
+    public function setUp()
     {
-        return new IntegerCollection([new Integer(5), new Integer(7)]);
+        $this->collection = new IntegerCollection([new Integer(5), new Integer(7)]);
     }
     
     public function test_invalid_type()
@@ -17,12 +19,22 @@ class TestIntegerCollection extends \PHPUnit_Framework_TestCase
         new IntegerCollection(["sadsasdasd", "sdfsdfsdf"]);
     }
     
-   
     public function test_remove()
     {
-        $collection = $this->test_valid_value()->remove(new Integer(7));        
+        $collection = $this->collection->remove(new Integer(7));        
         $expected = new IntegerCollection([new Integer(5)]);
         
         $this->assertTrue($collection->equals($expected));
+    }
+    
+    public function test_get_index()
+    {
+        $this->assertTrue($this->collection->get(0)->equals(new Integer(5)));
+    }
+    
+    public function test_fail_to_get_by_index()
+    {
+        $this->setExpectedException(\Exception::class);
+        $this->collection->get(2);
     }
 }
