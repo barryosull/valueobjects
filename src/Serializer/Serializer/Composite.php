@@ -19,13 +19,12 @@ class Composite
     
     public function serialize(AbstractComposite $object)
     {
-        $pararameters = $this->reflector->get_constructor_parameters(get_class($object));
-        $value_objects = $this->reflector->get_private_property($object, 'value_objects');
+        $properties = $this->reflector->get_protected_properties($object);
         
-        foreach ($pararameters as $index=>$parameter) {
+        foreach ($properties as $parameter) {
             $name = $parameter->getName();
-            $value = $value_objects[$index]; 
-            $serialized[$name] = $this->serializer->serialize($value);
+            $value_object = $parameter->getValue($object);
+            $serialized[$name] = $this->serializer->serialize($value_object);
         }
 		return $serialized;
     }

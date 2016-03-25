@@ -7,14 +7,6 @@ use EventSourced\ValueObject\Serializer;
 
 class Reflector implements Deserializer\Reflector, Serializer\Reflector
 {
-    public function get_private_property($object, $property_name)
-    {
-        $reflection = $this->relection_factory(get_class($object));
-        $property = $reflection->getProperty($property_name);
-        $property->setAccessible(true);
-        return $property->getValue($object);
-    }
-    
     public function call_constructor($class, array $arguments)
     {
         $reflection = $this->relection_factory($class);
@@ -25,6 +17,16 @@ class Reflector implements Deserializer\Reflector, Serializer\Reflector
     {
         $reflection = $this->relection_factory($class);
         return $reflection->getConstructor()->getParameters();
+    }
+    
+    public function get_protected_properties($object)
+    {
+        $reflection = $this->relection_factory(get_class($object));
+        $properties =  $reflection->getProperties(\ReflectionProperty::IS_PROTECTED);
+        foreach ($properties as $property) {
+            $property->setAccessible(true);
+        }
+        return $properties;
     }
     
     private static $vo_to_reflection_cache = [];

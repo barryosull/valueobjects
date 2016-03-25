@@ -9,6 +9,6 @@ class SampleEntity extends Type\AbstractEntity
     public function __construct(Uuid $id, Date $date) 
     {
         $this->date = $date;
-        parent::__construct($id, $date);
+        parent::__construct($id);
     }
 }

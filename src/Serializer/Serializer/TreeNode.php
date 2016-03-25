@@ -19,7 +19,7 @@ class TreeNode
     
     public function serialize(AbstractTreeNode $object)
     {
-        $value_object = $this->reflector->get_private_property($object, 'value');
+        $value_object = $object->value();
         return [
             'type' => $object->get_type_key(),
             'value' => $this->serializer->serialize($value_object)

@@ -4,7 +4,5 @@ namespace EventSourced\ValueObject\Serializer;
 
 interface Reflector 
 {    
-    public function get_private_property($object, $property_name);
-    
-    public function get_constructor_parameters($class);
+    public function get_protected_properties($object);
 }

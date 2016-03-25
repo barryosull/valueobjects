@@ -14,7 +14,7 @@ class Serializer implements Contracts\Serializer
     
     public function __construct(Reflector $reflector)
     {
-        $this->single_value = new Serializer\SingleValue($reflector);
+        $this->single_value = new Serializer\SingleValue();
         $this->composite = new Serializer\Composite($this, $reflector);
         $this->collection = new Serializer\Collection($this);
         $this->tree_node = new Serializer\TreeNode($this, $reflector);

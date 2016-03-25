@@ -2,17 +2,16 @@
 
 namespace EventSourced\ValueObject\ValueObject\Type;
 
+use EventSourced\ValueObject\ValueObject\Uuid;
 use EventSourced\ValueObject\Contracts\ValueObject;
 
 abstract class AbstractEntity extends AbstractComposite
 {	
-    private $id;
+    protected $id;
     
-    public function __construct()
+    public function __construct(Uuid $id)
     {
-        $this->id = func_get_arg(0);
-        $args = func_get_args();
-        parent::__construct(...$args);
+        $this->id = $id;
     }
     
     public function id() 
@@ -22,7 +21,7 @@ abstract class AbstractEntity extends AbstractComposite
     
     public function equals(ValueObject $other_valueobject)
     {
-        return $this->is_same_class($other_valueobject) 
-                && $this->id()->equals($other_valueobject->id());
+        return $this->is_same_class($other_valueobject)
+            && $this->id()->equals($other_valueobject->id());
     }
 }
