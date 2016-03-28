@@ -2,7 +2,7 @@
 
 namespace EventSourced\ValueObject\ValueObject\Type;
 
-use EventSourced\ValueObject\ValueObject\Type\AbstractSingleValue;
+use EventSourced\ValueObject\Contracts\ValueObject\Identifier;
 
 abstract class AbstractIndex extends AbstractSet
 {    
@@ -21,15 +21,15 @@ abstract class AbstractIndex extends AbstractSet
         return new static($items);
     }
         
-    public function exists(AbstractSingleValue $id)
+    public function exists(Identifier $id)
     {
         return isset($this->collection()[$id->value()]);
     }
         
-    public function remove(AbstractSingleValue $id)
+    public function remove(Identifier $id)
     {
         $items = $this->collection();
-        delete($items[$id->value()]);
+        unset($items[$id->value()]);
         return new static($items);
     }
     
@@ -43,7 +43,7 @@ abstract class AbstractIndex extends AbstractSet
         return new static($items);
     }
     
-    public function get(AbstractSingleValue $id) 
+    public function get(Identifier $id) 
     {
         if (!$this->exists($id)) {
             throw new \Exception("Cannot find object for key '".$id->value()."'");

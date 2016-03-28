@@ -19,8 +19,9 @@ class Composite
     
     public function serialize(AbstractComposite $object)
     {
-        $properties = $this->reflector->get_protected_properties($object);
+        $properties = $this->reflector->get_properties($object);
         
+        $serialized = [];
         foreach ($properties as $parameter) {
             $name = $parameter->getName();
             $value_object = $parameter->getValue($object);

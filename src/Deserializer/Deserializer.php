@@ -9,14 +9,14 @@ class Deserializer implements Contracts\Deserializer
 {
     private $single_value;
     private $composite;
-    private $collection;
+    private $set;
     private $tree_node;
     
     public function __construct(Reflector $reflector)
     {
         $this->single_value = new Deserializer\SingleValue();
         $this->composite = new Deserializer\Composite($this, $reflector);
-        $this->collection = new Deserializer\Collection($this);
+        $this->set = new Deserializer\Set($this);
         $this->tree_node = new Deserializer\TreeNode($this);
     }
     
@@ -37,8 +37,8 @@ class Deserializer implements Contracts\Deserializer
         if ($this->is_instance_of($class, Type\AbstractComposite::class)) {
             return $this->composite;
         }
-        if ($this->is_instance_of($class, Type\AbstractCollection::class)) {
-            return $this->collection;
+        if ($this->is_instance_of($class, Type\AbstractSet::class)) {
+            return $this->set;
         }
         
         throw new \Exception("No deserializer found for class ".$class);

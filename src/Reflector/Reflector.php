@@ -19,10 +19,10 @@ class Reflector implements Deserializer\Reflector, Serializer\Reflector
         return $reflection->getConstructor()->getParameters();
     }
     
-    public function get_protected_properties($object)
+    public function get_properties($object)
     {
         $reflection = $this->relection_factory(get_class($object));
-        $properties =  $reflection->getProperties(\ReflectionProperty::IS_PROTECTED);
+        $properties =  $reflection->getProperties();
         foreach ($properties as $property) {
             $property->setAccessible(true);
         }

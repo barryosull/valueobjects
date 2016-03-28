@@ -4,7 +4,7 @@ namespace EventSourced\ValueObject\Deserializer\Deserializer;
 
 use EventSourced\ValueObject\Deserializer\Deserializer;
 
-class Collection
+class Set
 {    
     private $deserializer;
     

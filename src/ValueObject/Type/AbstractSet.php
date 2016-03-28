@@ -52,4 +52,9 @@ abstract class AbstractSet extends AbstractValueObject
     {
         return $this->collection;
     }
+    
+    public function count()
+    {
+        return count($this->collection);
+    }
 }

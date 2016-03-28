@@ -9,14 +9,14 @@ class Serializer implements Contracts\Serializer
 {
     private $single_value;
     private $composite;
-    private $collection;
+    private $set;
     private $tree_node;
     
     public function __construct(Reflector $reflector)
     {
         $this->single_value = new Serializer\SingleValue();
         $this->composite = new Serializer\Composite($this, $reflector);
-        $this->collection = new Serializer\Collection($this);
+        $this->set = new Serializer\Set($this);
         $this->tree_node = new Serializer\TreeNode($this, $reflector);
     }
 
@@ -37,8 +37,8 @@ class Serializer implements Contracts\Serializer
         if ($this->is_instance_of($class, Type\AbstractComposite::class)) {
             return $this->composite;
         }
-        if ($this->is_instance_of($class, Type\AbstractCollection::class)) {
-            return $this->collection;
+        if ($this->is_instance_of($class, Type\AbstractSet::class)) {
+            return $this->set;
         }
         
         throw new \Exception("No serializer found for class ".$class);

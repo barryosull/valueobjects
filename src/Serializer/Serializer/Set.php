@@ -3,9 +3,9 @@
 namespace EventSourced\ValueObject\Serializer\Serializer;
 
 use EventSourced\ValueObject\Serializer\Serializer;
-use EventSourced\ValueObject\ValueObject\Type\AbstractCollection;
+use EventSourced\ValueObject\ValueObject\Type\AbstractSet;
 
-class Collection
+class Set
 {    
     private $serializer;
     
@@ -14,7 +14,7 @@ class Collection
         $this->serializer = $serializer;
     }
     
-    public function serialize(AbstractCollection $object)
+    public function serialize(AbstractSet $object)
     {
         $collection = $object->collection();
         $serialized = array_map(function($item){
