@@ -5,6 +5,7 @@ namespace EventSourced\ValueObject\ValueObject\Type;
 abstract class AbstractCollection extends AbstractSet
 {	    
     private $count = 0;
+    
     protected function item_key($item)
     {
         $this->count++;

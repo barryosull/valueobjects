@@ -1,10 +1,12 @@
 # ValueObjects
 
-ValueObjects (VOs) are the core of any DDD app, they ensure that values are valid and that they can be accepted by your domain.
+ValueObjects (VOs) are the core of any DDD (Domain Driven Design) application, they ensure that values are valid and will be accepted by your domain.
 
-In our experience, most ValueObject libraries offer a collection of ValueObjects, but have locked things down, so it's hard to extend them and build new ones.
+In our experience, most ValueObject libraries offer a collection of ValueObjects, but they've locked them down, so it's hard to extend them and build new ones.
 
-That's why we've built this ValueObjects toolkit, it makes building new ValueObjects quick, easy and painless.
+That's why we've built this ValueObjects toolkit, it makes building new ValueObjects quick, easy and painless. 
+
+For those using an onion architecture, consider this libary as part of the core.
 
 ## ValueObjects and Validators
 
@@ -24,6 +26,13 @@ class Integer extends ValueObject\AbstractSingleValue
     }
 }
 ```
+#### Accessing the value
+If you want to access the value held within a single ValueObject, then do the following.
+```php
+$integer = new Integer(1);
+echo $integer->value();
+```
+Nice and easy.
 
 ### Validators
 ValueObjects use validators to do their job. Instead of writing our own library, we've decided to use the excellent [Respect Validation](http://respect.github.io/Validation/) library. It has all the validators you could ask for, and it's syntax is concise and elegant.
@@ -31,10 +40,10 @@ ValueObjects use validators to do their job. Instead of writing our own library,
 ### Chaining Validators
 Respect Validators are chainable, so building complex validators for your value objects is a piece of cake.
 ```php
-use EventSourced\ValueObject\ValueObject;
+use EventSourced\ValueObject\ValueObject\Type\AbstractSingleValue;
 use Respect\Validation\Validator;
 
-class Coordinate extends ValueObject\AbstractSingleValue 
+class Coordinate extends AbstractSingleValue 
 {    
     protected function validator()
     {
@@ -49,79 +58,150 @@ An example is a locations GPS coordinate, it's actually a composite of two Coord
 
 #### Making a composite ValueObject
 ```php
-use EventSourced\ValueObject\ValueObject;
+use EventSourced\ValueObject\ValueObject\Type\AbstractComposite;
 
-class GPSCoordinates extends ValueObject\AbstractComposite 
+class GPSCoordinates extends AbstractComposite 
 {   
+    protected $latitude;
+    protected $longitude;
+    
     public function __construct(Coordinate $latitude, Coordinate $longitude) 
     {
-        parent::__construct($latitude, $longitude);
+        $this->latitude = $latitude;
+        $this->longitude = $longitude;
+    }
+    
+    public function latitude()
+    {
+        return $this->latitude;
+    }
+    
+    public function longitude()
+    {
+        return $this->longitude;
     }
 }
 ```
-That's it, the base class figures out the rest.
+So it's simply just a holder for a bunch of valueobjects. If you want to run any validation across value objects, you should do it in the constructor. The base class takes care of the "equals" method, so you don't have to worry about that.
 
 ### Collections
-Sometimes you'll want to have a collection of ValueObjects. Now, you can't use a standard array, because the deserializer has to know what type of ValueObject is in the collection. That's why we created a simple helper class for creating strongly typed collections of ValueObjects.
+Sometimes you'll want to have a collection of ValueObjects. Now, you shouldn't use a standard array, because you want strong typing (also the deserializer has to know what type of ValueObject is in the collection, more on that later). That's why we created a simple helper class for creating strongly typed collections of ValueObjects.
 ```php
-namespace EventSourced\ValueObject\ValueObject;
+use EventSourced\ValueObject\ValueObject\Type\AbstractCollection;
 
 class IntegerCollection extends AbstractCollection 
 {    
-    protected function collection_of_class()
+    public function collection_of()
     {
         return Integer::class;
     }
 }
 ```
-You just need to define the "collection_of_class" and return the class type of the collection. The base class will ensure that all items added to the list are of the correct type.
+You just need to define the "collection_of" and return the class type of the collection. The base class will ensure that all items added to the list are of the correct type. Collections allow you to perform various operations on the collection, such as the following. Collections are immutable, so any operations on it will return a new collection, leaving the original intact.
 
-### Ordered Collections
-Occasionally you'll want to define an ordered collection, one where the sequence is important. Here's how to do that using our helper abstract class "AbstractOrderedCollection".
 ```php
-use Respect\Validation\Validator;
+$collection = new IntegerCollection([new Integer(1)]);
+$collection = $collection->add(new Integer(2)); 
+$collection->count(); //2
+$collection->exists(new Integer(2)); //true
+$collection->get(0)->value(); //1
+$collection = $collection->remove(new Integer(2));
+$collection->exists(new Integer(2)); //false
+```
 
-class AscendingIntegerCollection  extends AbstractOrderedCollection 
-{    
-    protected function collection_of()
-    {
-        return Integer::class;
-    }
+### Entities
+An entity is a composite valueobject, where the first value is the ID of the entity, and the rest of the values are just values. The key thing about an identity is that it is "equal" to another entity if the IDs match, the rest of the values don't matter for comparisons.
+
+The ID valueobject must implement the "Identifier" contract, the reason for this is to make intent clear, so you don't accidentily pass the wrong ValueObject to the parent constructor.
+
+```php
+use EventSourced\ValueObject\ValueObject\Type\AbstractEntity;
+
+class SampleEntity extends AbstractEntity
+{
+    public $date;
     
-    protected function order_validator($preceding_value)
+    //Uuid and Date are base types that comes with the library
+    public function __construct(Uuid $id, Date $date) 
     {
-       return Validator::floatVal()->min($preceding_value);
+        $this->date = $date;
+        parent::__construct($id);
+    }
+}
+
+$entity = new SampleEntity(new Uuid("153111a5-2d77-48b7-a88d-ee1d626c1d5d"), new Date('2013-10-12');
+
+//Accessing the id property, part of the base class
+echo $entity->id()->value();
+```
+
+That's an entity. You'll notice that the value "$date" is public. That's because it's an entity and the values can change. Feel free to make this protected, it would be better, the above is just for brevity.
+
+### Index
+An index is a collection of entities, where the id of the entity is used as the key for the collection. Entities are accessed and removed by their ID. Creating one is as simple as creating a collection.
+
+```php
+use EventSourced\ValueObject\ValueObject\Type\AbstractIndex;
+
+class SampleEntityIndex extends Type\AbstractIndex
+{    
+    public function collection_of()
+    {
+        return SampleEntity::class;
     }
 }
 ```
-Implement those two methods and you'll have a list that's ordered by the result of a validator, comparing each element to the one next to it.
+
+Indexes have similar functionality to collections, except the focus is around entities and their ids. Here is the full feature set.
+
+```php
+$index = new SampleEntityIndex([]);
+$id = new Uuid("153111a5-2d77-48b7-a88d-ee1d626c1d5d");
+$index = $index->add(new SampleEntity($id, new Date('2013-10-12'))); 
+$index->count(); //1
+$index->exists($id); //true
+$index->get($id)->date()->value(); //'2013-10-12'
+$index = $index->replace(new SampleEntity($id, new Date('2014-10-12'));
+$index->get($id)->date()->value(); //'2014-10-12'
+$index = $index->remove($id);
+$index->exists($id); //false
+```
 
 ### Comparing
-Comparing ValueObjects is easy. Just use the built in equals function. You get this out of the box if you extend any of the abstract classes (except AbstractValueObject).
+Comparing ValueObjects is easy. Just use the built in equals function. You get this out of the box if you extend any of the above abstract classes. If all the values match, then they are equal (Entities being the exception, only the "id" matters for comparison).
 ```php
 $float_a = new Float(0.121);
 $float_b = new Float(0.121);
-$same = $float_a->equals($float_b);
+$float_a->equals($float_b); //true
 ```
 
 ### Serializing
-ValueObjects are not meant to let you access the internal value, as they're purpose is to represent the value. This hard constraint makes domains consistent and clean, it forces best practice and stop lazy coding, which causes bugs.
-This begs the obvious question, how do you save these things? Well, we're created a serializer class that turns these ValueObjects into their base data structures. This serializer is intended to work with our abstract classes, so if you extend those, then you can serialize a ValueObject.
-For AbstractSingleValue based ValueObjects, it returns the base value, for AbstractComposite and AbstractCollection, it returns the tree structure as an array with key => values. Here's how it works.
+As you've seen above, you can access the value of any value object and you can navigate complex valueobjects to extract their tree structure. This means you can serialize a value object and store it in a Datebase to deserialize and use later. 
+
+Now, the thing is, writing these serializers is a pain in the ass. That's why we've created generic serializer/deserializer classes that tranforms these ValueObjects into their base data structures, and back. This serializer wil only work with our abstract classes, so if you extend those, then you can serialize a ValueObject.
+
+
+For AbstractSingleValue based ValueObjects, it returns the base value, for AbstractComposite and the more complex ValueObjects, it returns the tree structure as an array with key => values. Here's how it works.
 ```php
+use EventSourced\ValueObject\Serializer\Serializer;
+
 $float = new Float(0.121);
 $serializer = new Serializer();
 $serialized = $serializer->serialize($float);
 ```
 
 ### Deserializing
-Once you've serialized a ValueObject, you'll want to deserialize it at some future time. To do that, pass the serialized result to the deserialize function, type hinting the ValueObject class you want it to recreate, and you'll get the full ValueObject back.
+Once you've serialized a ValueObject, you'll want to deserialize it at some future time. To do that, pass the serialized result to the deserialize function, type hinting the ValueObject class you want it to recreate, and you'll get the full ValueObject back. This works for simple and complex, such as collections and indexes.
 ```php
+use EventSourced\ValueObject\Serializer\Serializer;
+use EventSourced\ValueObject\Deserializer\Deserializer;
+
 $float = new Float(0.121);
 $serializer = new Serializer();
 $serialized = $serializer->serialize($float);
 
-$float_again = $serializer->deserialize(Float:class, $serialized);
+$deserializer = new Deserializer();
+$float_again = $deserializer->deserialize(Float:class, $serialized);
 ```
 
 ### Error Messages
