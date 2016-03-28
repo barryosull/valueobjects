@@ -8,8 +8,6 @@ abstract class AbstractSingleValue extends AbstractValueObject
 {	
 	protected $value;
     
-    abstract protected function validator();
-
 	public function __construct($value) 
 	{
         $this->assert()->is($this->validator(), $value);

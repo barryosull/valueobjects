@@ -2,8 +2,6 @@
 
 namespace EventSourced\ValueObject\ValueObject;
 
-use Respect\Validation\Validator;
-
 class Date extends Type\AbstractSingleValue 
 {    
     public function __construct($value)
@@ -13,6 +11,6 @@ class Date extends Type\AbstractSingleValue
     
     protected function validator()
     {
-        return Validator::Date();
+        return parent::validator()->Date();
     }
 }

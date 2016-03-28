@@ -4,6 +4,7 @@ namespace EventSourced\ValueObject\ValueObject\Type;
 
 use EventSourced\ValueObject\Contracts\ValueObject;
 use EventSourced\ValueObject\Assert\Assert;
+use Respect\Validation\Validator;
 
 abstract class AbstractValueObject implements ValueObject
 {	    
@@ -15,5 +16,10 @@ abstract class AbstractValueObject implements ValueObject
     protected function assert()
     {
         return new Assert(get_called_class());
+    }
+    
+    protected function validator()
+    {
+        return Validator::create();
     }
 }

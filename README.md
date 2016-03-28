@@ -11,18 +11,17 @@ For those using an onion architecture, consider this libary as part of the core.
 ## ValueObjects and Validators
 
 ### Single Values
-These are ValueObjects that are given a single value that they must validate. For these ValueObjects all you need to do is specify their validator class.
+These are ValueObjects that are given a single value that they must validate. For these ValueObjects all you need to do is specify their validator by extending the parent.
 
 #### Making a new Single Value VO
 ```php
 use EventSourced\ValueObject\ValueObject;
-use Respect\Validation\Validator;
 
 class Integer extends ValueObject\AbstractSingleValue 
 {    
     protected function validator()
     {
-        return Validator::intVal();
+        return parent::validator()->intVal();
     }
 }
 ```
@@ -37,17 +36,18 @@ Nice and easy.
 ### Validators
 ValueObjects use validators to do their job. Instead of writing our own library, we've decided to use the excellent [Respect Validation](http://respect.github.io/Validation/) library. It has all the validators you could ask for, and it's syntax is concise and elegant.
 
+A helper method "validator" returns a new instance of the respect validator, it has been added to all abstract classes.
+
 ### Chaining Validators
 Respect Validators are chainable, so building complex validators for your value objects is a piece of cake.
 ```php
 use EventSourced\ValueObject\ValueObject\Type\AbstractSingleValue;
-use Respect\Validation\Validator;
 
 class Coordinate extends AbstractSingleValue 
 {    
     protected function validator()
     {
-        return Validator::floatVal()->between(-90, 90);
+        return parent::validator()->floatVal()->between(-90, 90);
     }
 }
 ```

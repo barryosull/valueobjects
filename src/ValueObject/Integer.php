@@ -2,13 +2,11 @@
 
 namespace EventSourced\ValueObject\ValueObject;
 
-use Respect\Validation\Validator;
-
 class Integer extends Type\AbstractSingleValue
 {    
     protected function validator()
     {
-        return Validator::intVal();
+        return parent::validator()->intVal();
     }
     
     public function reset()

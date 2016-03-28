@@ -2,13 +2,11 @@
 
 namespace EventSourced\ValueObject\ValueObject;
 
-use Respect\Validation\Validator;
-
 class Boolean extends Type\AbstractSingleValue 
 {    
     protected function validator()
     {
-        return Validator::boolType();
+        return parent::validator()->boolType();
     }
     
     public function true()
