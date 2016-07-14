@@ -29,5 +29,11 @@
       "EventSourced\\ValueObject\\": "src/"
     }
   },
-  "minimum-stability": "dev"
+  "minimum-stability": "dev",
+  
+  "scripts": {
+    "test": [
+      "vendor/bin/phpunit"
+    ]
+  }
 }

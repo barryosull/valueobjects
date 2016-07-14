@@ -2,14 +2,13 @@
 
 namespace EventSourced\ValueObject\ValueObject\Type;
 
-use EventSourced\ValueObject\ValueObject\Uuid;
 use EventSourced\ValueObject\Contracts\ValueObject;
 
 abstract class AbstractEntity extends AbstractComposite
 {	
     protected $id;
     
-    public function __construct(Uuid $id)
+    public function __construct(ValueObject $id)
     {
         $this->id = $id;
     }
