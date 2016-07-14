@@ -1,6 +1,5 @@
 <?php
 
-
 namespace EventSourced\ValueObject\Assert;
 
 class Exception extends \Exception 
@@ -10,9 +9,10 @@ class Exception extends \Exception
     
     public function __construct($value, $valueobject_class)
     {
-        $this->value = $value;
+        $this->value = is_object($value) ? get_class($value) : $value;
         $this->valueobject_class = $valueobject_class;
-        parent::__construct("", 0, null);
+        $message = "'$this->value' is not a valid value for ValueObject '$valueobject_class'";
+        parent::__construct($message, 0, null);
     }
     
     public function value()

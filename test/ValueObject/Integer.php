@@ -18,7 +18,8 @@ class TestInteger extends \PHPUnit_Framework_TestCase
     
     public function test_string_value()
     {
-        $this->setExpectedException(Assert\IsException::class);
+        $this->expectException(Assert\IsException::class);
+        $this->expectExceptionMessage("'asdfasdf' is not a valid value for ValueObject 'EventSourced\ValueObject\ValueObject\Integer'");
         new Integer("asdfasdf");
     }
     
