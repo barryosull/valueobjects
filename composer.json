@@ -29,7 +29,6 @@
       "EventSourced\\ValueObject\\": "src/"
     }
   },
-  "minimum-stability": "dev",
   
   "scripts": {
     "test": [
