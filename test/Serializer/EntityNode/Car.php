@@ -5,11 +5,11 @@ use EventSourced\ValueObject\ValueObject;
 class Car extends ValueObject\Type\AbstractComposite
 {
     protected $wheels;
-    protected $seat;
+    protected $seats;
 
-    public function __construct(ValueObject\Integer $wheels, ValueObject\NotBlankString $seat)
+    public function __construct(ValueObject\Integer $wheels, ValueObject\NotBlankString $seats)
     {
         $this->wheels = $wheels;
-        $this->seat = $seat;
+        $this->seats = $seats;
     }
 }

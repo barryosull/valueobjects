@@ -41,10 +41,10 @@ class Serializer implements Contracts\Serializer
         
         throw new \Exception("No serializer found for class ".$class);
     }
-    
-    private function is_instance_of($class, $class_or_interface) 
+
+    private function is_instance_of($class, $parent_class)
     {
-        return (is_subclass_of($class, $class_or_interface)
-            || $class == $class_or_interface);
+        return is_subclass_of($class, $parent_class)
+        || ($class == $parent_class);
     }
 }

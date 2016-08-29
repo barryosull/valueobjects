@@ -23,6 +23,11 @@ class Composite
         foreach ($parameters as $parameter) {
             $name = $parameter->getName();
             $parameter_class = $parameter->getClass()->getName();
+
+            if (!isset($serialized[$name])) {
+                throw new \Exception("Expected the key '$name' for type '$class', cannot deserialized. (check your schema is valid)");
+            }
+
             $deserialized_parameters[$name] = $this->deserializer->deserialize(
                 $parameter_class, $serialized[$name]
             );

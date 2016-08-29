@@ -1,14 +1,17 @@
 <?php namespace EventSourced\ValueObject\Deserializer\Deserializer;
 
 use EventSourced\ValueObject\Deserializer\Deserializer;
+use EventSourced\ValueObject\Deserializer\Reflector;
 
 class TypeEntity
 {    
     private $deserializer;
+    private $reflector;
     
-    public function __construct(Deserializer $deserializer)
+    public function __construct(Deserializer $deserializer, Reflector $reflector)
     {
         $this->deserializer = $deserializer;
+        $this->reflector = $reflector;
     }
 
     public function deserialize($class, $serialized)

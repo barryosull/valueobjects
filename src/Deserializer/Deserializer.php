@@ -15,7 +15,7 @@ class Deserializer implements Contracts\Deserializer
         $this->single_value = new Deserializer\SingleValue();
         $this->composite = new Deserializer\Composite($this, $reflector);
         $this->set = new Deserializer\Set($this);
-        $this->type_entity = new Deserializer\TypeEntity($this);
+        $this->type_entity = new Deserializer\TypeEntity($this, $reflector);
     }
     
     public function deserialize($class, $parameters)
@@ -44,7 +44,7 @@ class Deserializer implements Contracts\Deserializer
     
     private function is_instance_of($class, $parent_class)
     {
-        return is_a($class, $parent_class)
+        return is_subclass_of($class, $parent_class)
             || ($class == $parent_class);
     }
 }
