@@ -1,5 +1,5 @@
 {
-  "name": "eventsourced/valueobjects",
+  "name": "dql/valueobjects",
   "description": "A helper library for making valueobjects",
   "license": "MIT",
   "authors": [
