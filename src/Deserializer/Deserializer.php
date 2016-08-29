@@ -1,6 +1,4 @@
-<?php
-
-namespace EventSourced\ValueObject\Deserializer;
+<?php namespace EventSourced\ValueObject\Deserializer;
 
 use EventSourced\ValueObject\Contracts;
 use EventSourced\ValueObject\ValueObject\Type;
@@ -10,14 +8,14 @@ class Deserializer implements Contracts\Deserializer
     private $single_value;
     private $composite;
     private $set;
-    private $tree_node;
+    private $type_entity;
     
     public function __construct(Reflector $reflector)
     {
         $this->single_value = new Deserializer\SingleValue();
         $this->composite = new Deserializer\Composite($this, $reflector);
         $this->set = new Deserializer\Set($this);
-        $this->tree_node = new Deserializer\TreeNode($this);
+        $this->type_entity = new Deserializer\TypeEntity($this);
     }
     
     public function deserialize($class, $parameters)
@@ -28,8 +26,8 @@ class Deserializer implements Contracts\Deserializer
  
     private function deserializer_repo_fetch($class)
     {
-        if ($this->is_instance_of($class, Type\AbstractTreeNode::class)) {
-            return $this->tree_node;
+        if ($this->is_instance_of($class, Type\AbstractTypeEntity::class)) {
+            return $this->type_entity;
         }
         if ($this->is_instance_of($class, Type\AbstractSingleValue::class)) {
             return $this->single_value;
@@ -44,9 +42,9 @@ class Deserializer implements Contracts\Deserializer
         throw new \Exception("No deserializer found for class ".$class);
     }
     
-    private function is_instance_of($class, $class_or_interface) 
+    private function is_instance_of($class, $parent_class)
     {
-        return (is_subclass_of($class, $class_or_interface)
-            || $class == $class_or_interface);
+        return is_a($class, $parent_class)
+            || ($class == $parent_class);
     }
 }

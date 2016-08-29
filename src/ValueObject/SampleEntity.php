@@ -1,6 +1,4 @@
-<?php
-
-namespace EventSourced\ValueObject\ValueObject;
+<?php namespace EventSourced\ValueObject\ValueObject;
 
 class SampleEntity extends Type\AbstractEntity
 {

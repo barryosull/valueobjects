@@ -10,14 +10,12 @@ class Serializer implements Contracts\Serializer
     private $single_value;
     private $composite;
     private $set;
-    private $tree_node;
     
     public function __construct(Reflector $reflector)
     {
         $this->single_value = new Serializer\SingleValue();
         $this->composite = new Serializer\Composite($this, $reflector);
         $this->set = new Serializer\Set($this);
-        $this->tree_node = new Serializer\TreeNode($this, $reflector);
     }
 
     public function serialize($object)
@@ -28,8 +26,8 @@ class Serializer implements Contracts\Serializer
     
     private function serializer_repo_fetch($class)
     {
-        if ($this->is_instance_of($class, Type\AbstractTreeNode::class)) {
-            return $this->tree_node;
+        if ($this->is_instance_of($class, Type\AbstractTypeEntity::class)) {
+            return $this->composite;
         }
         if ($this->is_instance_of($class, Type\AbstractSingleValue::class)) {
             return $this->single_value;

@@ -1,6 +1,4 @@
-<?php
-
-namespace EventSourced\ValueObject\ValueObject\Type;
+<?php namespace EventSourced\ValueObject\ValueObject\Type;
 
 use EventSourced\ValueObject\Contracts\ValueObject;
 
