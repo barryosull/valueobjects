@@ -13,19 +13,19 @@ class TestBoolean extends \PHPUnit_Framework_TestCase
     
     public function test_empty_value()
     {
-        $this->setExpectedException(Assert\IsException::class);
+        $this->setExpectedException(Assert\Exception::class);
         new Boolean(0);
     }
     
     public function test_string_value()
     {
-        $this->setExpectedException(Assert\IsException::class);
+        $this->setExpectedException(Assert\Exception::class);
         new Boolean("asdfasdf");
     }
     
     public function test_float_value()
     {
-        $this->setExpectedException(Assert\IsException::class);
+        $this->setExpectedException(Assert\Exception::class);
         new Boolean(12132.2132);
     }
     

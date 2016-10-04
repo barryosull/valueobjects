@@ -13,7 +13,7 @@ class TestDateTime extends \PHPUnit_Framework_TestCase
     
     public function test_invalid_value()
     {
-        $this->setExpectedException(Assert\IsException::class);
+        $this->setExpectedException(Assert\Exception::class);
         new DateTime("2013-01-01 asdf");
     }
     
@@ -27,7 +27,7 @@ class TestDateTime extends \PHPUnit_Framework_TestCase
     
     public function test_date_must_have_time()
     {
-        $this->setExpectedException(Assert\IsException::class);
+        $this->setExpectedException(Assert\Exception::class);
         new DateTime("2013-01-01");
     }
 }

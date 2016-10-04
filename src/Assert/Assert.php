@@ -1,6 +1,7 @@
 <?php
 
 namespace EventSourced\ValueObject\Assert;
+use Respect\Validation\Exceptions\NestedValidationException;
 
 class Assert 
 {        
@@ -13,15 +14,10 @@ class Assert
     
     public function is($validator, $value) 
     {
-        if (!$validator->validate($value)) {
-            throw new IsException($value, $this->calling_class);
-        }
-    }
-    
-    public function not($validator, $value) 
-    {
-        if ($validator->validate($value)) {
-            throw new NotException($value, $this->calling_class);
+        try {
+            $validator->assert($value);
+        } catch(NestedValidationException $exception) {
+            throw new Exception($this->calling_class, $exception->getMessages());
         }
     }
 }

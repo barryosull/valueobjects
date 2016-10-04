@@ -35,4 +35,22 @@ class TestCollection extends \PHPUnit_Framework_TestCase
         $deserialized = $this->deserializer->deserialize(IntegerCollection::class, $serialized);
         $this->assertTrue($collection->equals($deserialized));
     }
+
+    public function test_deserialize_error_reporting()
+    {
+        $serialized = [36, "asdf"];
+        $exception = new \Exception();
+        try {
+            $this->deserializer->deserialize(IntegerCollection::class, $serialized);
+        }catch (DomainException $e) {
+            $exception = $e;
+        }
+
+        var_dump($exception->error_messages());exit;
+        $expected = [
+            1 => []
+        ];
+
+        $this->assertEquals($expected, $exception->error_messages());
+    }
 }

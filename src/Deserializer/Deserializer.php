@@ -20,8 +20,8 @@ class Deserializer implements Contracts\Deserializer
     
     public function deserialize($class, $parameters)
     {
-        $serializer = $this->deserializer_repo_fetch($class);
-        return $serializer->deserialize($class, $parameters);
+        $deserializer = $this->deserializer_repo_fetch($class);
+        return $deserializer->deserialize($class, $parameters);
     }
  
     private function deserializer_repo_fetch($class)

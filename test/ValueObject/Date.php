@@ -12,7 +12,7 @@ class TestDate extends \PHPUnit_Framework_TestCase
     
     public function test_invalid_value()
     {
-        $this->setExpectedException(Assert\IsException::class);
+        $this->setExpectedException(Assert\Exception::class);
         new Date("2013-01as");
     }
     

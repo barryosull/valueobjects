@@ -12,20 +12,25 @@ class TestInteger extends \PHPUnit_Framework_TestCase
     
     public function test_empty_value()
     {
-        $this->setExpectedException(Assert\IsException::class);
+        $this->setExpectedException(Assert\Exception::class);
         new Integer(null);
     }
     
     public function test_string_value()
     {
-        $this->expectException(Assert\IsException::class);
-        $this->expectExceptionMessage("'asdfasdf' is not a valid value for ValueObject 'EventSourced\ValueObject\ValueObject\Integer'");
-        new Integer("asdfasdf");
+        $exception = new \Exception();
+        try {
+            new Integer("asdfasdf");
+        } catch (Assert\Exception $ex) {
+            $exception = $ex;
+        }
+
+        $this->assertEquals(['"asdfasdf" must be an integer number'], $exception->error_messages());
     }
     
     public function test_float_value()
     {
-        $this->setExpectedException(Assert\IsException::class);
+        $this->setExpectedException(Assert\Exception::class);
         new Integer(12132.2132);
     }
     

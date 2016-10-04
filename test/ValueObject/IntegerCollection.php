@@ -15,7 +15,7 @@ class TestIntegerCollection extends \PHPUnit_Framework_TestCase
     
     public function test_invalid_type()
     {
-        $this->setExpectedException(Assert\IsException::class);
+        $this->setExpectedException(Assert\Exception::class);
         new IntegerCollection(["sadsasdasd", "sdfsdfsdf"]);
     }
     

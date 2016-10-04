@@ -16,13 +16,13 @@ class TestOperator extends \PHPUnit_Framework_TestCase {
     
     public function test_invalid()
     {
-        $this->setExpectedException(\EventSourced\ValueObject\Assert\IsException::class);
+        $this->setExpectedException(\EventSourced\ValueObject\Assert\Exception::class);
         new Operator('asd');
     }
     
     public function test_invalid_blank()
     {
-        $this->setExpectedException(\EventSourced\ValueObject\Assert\IsException::class);
+        $this->setExpectedException(\EventSourced\ValueObject\Assert\Exception::class);
         new Operator('');
     }
 }

@@ -56,8 +56,20 @@ class EntityNode extends \PHPUnit_Framework_TestCase
         $deserialized_invalid_car = $this->deserialized_car;
         $deserialized_invalid_car['details'] = $this->deserialized_bike['details'];
 
-        $this->setExpectedException(\Exception::class);
+        $exception = new \Exception();
+        try {
+            $this->deserializer->deserialize(Vehicle::class, $deserialized_invalid_car);
+        }catch (DomainException $e) {
+            $exception = $e;
+        }
 
-        $this->deserializer->deserialize(Vehicle::class, $deserialized_invalid_car);
+        $expected = [
+            'details' => [
+                'wheels' => ["Property 'wheels' is missing"],
+                'seats' => ["Property 'seats' is missing"]
+            ]
+        ];
+
+        $this->assertEquals($expected, $exception->error_messages());
     }
 }

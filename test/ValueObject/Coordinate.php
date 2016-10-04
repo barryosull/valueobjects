@@ -22,7 +22,7 @@ class TestCoordinate extends \PHPUnit_Framework_TestCase
     
     public function test_over_max_range() 
     {
-        $this->setExpectedException(\EventSourced\ValueObject\Assert\IsException::class);
+        $this->setExpectedException(\EventSourced\ValueObject\Assert\Exception::class);
         new Coordinate(90.00001);
     }
     
@@ -31,17 +31,18 @@ class TestCoordinate extends \PHPUnit_Framework_TestCase
         $exception = new \Exception();
         try {
             new Coordinate(90.00001);
-        } catch (Assert\IsException $ex) {
+        } catch (Assert\Exception $ex) {
             $exception = $ex;
         }
-        
-        $this->assertEquals(90.00001, $exception->value());
+
+        $this->assertEquals(["90.00001 must be lower than or equals 90"], $exception->error_messages());
+
         $this->assertEquals(Coordinate::class, $exception->valueobject_class());
     }
     
     public function test_under_min_range() 
     {
-        $this->setExpectedException(\EventSourced\ValueObject\Assert\IsException::class);
+        $this->setExpectedException(\EventSourced\ValueObject\Assert\Exception::class);
         new Coordinate(-90.00001);
     }
     

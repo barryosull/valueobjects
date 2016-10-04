@@ -39,7 +39,7 @@ class Serializer implements Contracts\Serializer
             return $this->set;
         }
         
-        throw new \Exception("No serializer found for class ".$class);
+        throw new Exception("No serializer found for class ".$class);
     }
 
     private function is_instance_of($class, $parent_class)
