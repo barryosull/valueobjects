@@ -20,11 +20,11 @@ class Serializer implements Contracts\Serializer
 
     public function serialize($object)
     {
-        $serializer = $this->serializer_repo_fetch(get_class($object));
+        $serializer = $this->serializer_repo_fetch(get_class($object), $object);
         return $serializer->serialize($object);
     }
     
-    private function serializer_repo_fetch($class)
+    private function serializer_repo_fetch($class, $object)
     {
         if ($this->is_instance_of($class, Type\AbstractTypeEntity::class)) {
             return $this->composite;
@@ -38,8 +38,7 @@ class Serializer implements Contracts\Serializer
         if ($this->is_instance_of($class, Type\AbstractSet::class)) {
             return $this->set;
         }
-        
-        throw new Exception("No serializer found for class ".$class);
+        throw new Exception("No serializer found for class '".$class."'");
     }
 
     private function is_instance_of($class, $parent_class)

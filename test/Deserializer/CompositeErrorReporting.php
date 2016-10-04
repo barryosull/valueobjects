@@ -15,23 +15,43 @@ class TestCompositeErrorReporting extends \PHPUnit_Framework_TestCase
         parent::setUp();
     }
 
-    public function test_returns_human_readable_error()
+    public function test_reporting_when_values_are_wrong()
     {
         $encoded = [
-          "id"=> "1234",
-          "date"=> "saads"
+            "id" => "1234",
+            "date" => "saads"
         ];
 
-        $exception = new \Exception();
-        try {
-            $this->deserializer->deserialize(SampleEntity::class, $encoded);
-        } catch (\DomainException $e) {
-            $exception = $e;
-        }
+        $exception = $this->fail_elegantly($encoded);
 
         $expected = [
             "id" => ['"1234" must validate against "/([a-f\\\\d]{8}(-[a-f\\\\d]{4}){3}-[a-f\\\\d]{12}?)/i"'],
             "date" => ['"saads" must be a valid date']
+        ];
+
+        $this->assertEquals($expected, $exception->error_messages());
+    }
+
+    private function fail_elegantly($encoded)
+    {
+        try {
+            $this->deserializer->deserialize(SampleEntity::class, $encoded);
+        } catch (\DomainException $e) {
+            return $e;
+        }
+        throw new \Exception("This function should have thrown an exception.");
+    }
+
+    public function test_reporting_when_values_are_missing()
+    {
+        $encoded = [
+            "date"=> "2014-01-01"
+        ];
+
+        $exception = $this->fail_elegantly($encoded);
+
+        $expected = [
+            "id" => ["Property 'id' is missing"]
         ];
 
         $this->assertEquals($expected, $exception->error_messages());

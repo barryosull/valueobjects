@@ -46,9 +46,8 @@ class TestCollection extends \PHPUnit_Framework_TestCase
             $exception = $e;
         }
 
-        var_dump($exception->error_messages());exit;
         $expected = [
-            1 => []
+            1 => ['"asdf" must be an integer number']
         ];
 
         $this->assertEquals($expected, $exception->error_messages());

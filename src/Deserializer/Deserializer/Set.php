@@ -1,8 +1,7 @@
-<?php
-
-namespace EventSourced\ValueObject\Deserializer\Deserializer;
+<?php namespace EventSourced\ValueObject\Deserializer\Deserializer;
 
 use EventSourced\ValueObject\Deserializer\Deserializer;
+use EventSourced\ValueObject\Deserializer\Exception;
 
 class Set
 {    
@@ -15,12 +14,20 @@ class Set
     
     public function deserialize($class, $serialized)
     {
+        $errors = [];
         $collection = new $class([]);
         $collection_of_class = $collection->collection_of();
-        foreach ($serialized as $value) {
-            $collection = $collection->add( 
-                $this->deserializer->deserialize($collection_of_class, $value) 
-            );
+        foreach ($serialized as $key=>$value) {
+            try {
+                $collection = $collection->add(
+                    $this->deserializer->deserialize($collection_of_class, $value)
+                );
+            } catch (\DomainException $e) {
+                $errors[$key] = $e->error_messages();
+            }
+        }
+        if (count($errors) != 0) {
+            throw new Exception($errors);
         }
 		return $collection;
     }
