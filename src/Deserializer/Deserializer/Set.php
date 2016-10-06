@@ -2,16 +2,17 @@
 
 use EventSourced\ValueObject\Deserializer\Deserializer;
 use EventSourced\ValueObject\Deserializer\Exception;
+use EventSourced\ValueObject\Assert;
 
 class Set
-{    
+{
     private $deserializer;
-    
+
     public function __construct(Deserializer $deserializer)
     {
         $this->deserializer = $deserializer;
     }
-    
+
     public function deserialize($class, $serialized)
     {
         $errors = [];
@@ -22,13 +23,15 @@ class Set
                 $collection = $collection->add(
                     $this->deserializer->deserialize($collection_of_class, $value)
                 );
-            } catch (\DomainException $e) {
+            } catch (Assert\Exception $e) {
+                $errors[$key] = $e->error_messages();
+            } catch (Exception $e) {
                 $errors[$key] = $e->error_messages();
             }
         }
         if (count($errors) != 0) {
             throw new Exception($errors);
         }
-		return $collection;
+        return $collection;
     }
 }

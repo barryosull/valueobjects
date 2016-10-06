@@ -2,6 +2,7 @@
 
 use Test\Serializer\EntityNode\Vehicle;
 use EventSourced\ValueObject\Reflector\Reflector;
+use EventSourced\ValueObject\Deserializer;
 
 class EntityNode extends \PHPUnit_Framework_TestCase
 {
@@ -34,7 +35,7 @@ class EntityNode extends \PHPUnit_Framework_TestCase
     {
         $reflector = new Reflector();
         $this->serializer = new \EventSourced\ValueObject\Serializer\Serializer($reflector);
-        $this->deserializer = new \EventSourced\ValueObject\Deserializer\Deserializer($reflector);
+        $this->deserializer = new Deserializer\Deserializer($reflector);
 
         $this->car = $this->deserializer->deserialize(Vehicle::class, $this->deserialized_car);
 
@@ -59,7 +60,7 @@ class EntityNode extends \PHPUnit_Framework_TestCase
         $exception = new \Exception();
         try {
             $this->deserializer->deserialize(Vehicle::class, $deserialized_invalid_car);
-        }catch (DomainException $e) {
+        }catch (Deserializer\Exception $e) {
             $exception = $e;
         }
 

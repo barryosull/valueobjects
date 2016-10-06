@@ -1,6 +1,6 @@
 <?php namespace EventSourced\ValueObject\Assert;
 
-class Exception extends \DomainException
+class Exception extends \Exception
 {
     private $error_messages;
     private $valueobject_class;

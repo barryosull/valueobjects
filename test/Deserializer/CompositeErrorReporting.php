@@ -36,7 +36,7 @@ class TestCompositeErrorReporting extends \PHPUnit_Framework_TestCase
     {
         try {
             $this->deserializer->deserialize(SampleEntity::class, $encoded);
-        } catch (\DomainException $e) {
+        } catch (Deserializer\Exception $e) {
             return $e;
         }
         throw new \Exception("This function should have thrown an exception.");

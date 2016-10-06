@@ -3,6 +3,7 @@
 use EventSourced\ValueObject\ValueObject\Integer;
 use EventSourced\ValueObject\ValueObject\IntegerCollection;
 use EventSourced\ValueObject\Reflector\Reflector;
+use EventSourced\ValueObject\Deserializer;
 
 class TestCollection extends \PHPUnit_Framework_TestCase 
 {
@@ -13,7 +14,7 @@ class TestCollection extends \PHPUnit_Framework_TestCase
     {
         $reflector = new Reflector();
         $this->serializer = new \EventSourced\ValueObject\Serializer\Serializer($reflector);
-        $this->deserializer = new \EventSourced\ValueObject\Deserializer\Deserializer($reflector);
+        $this->deserializer = new Deserializer\Deserializer($reflector);
         parent::setUp();
     }
 
@@ -42,7 +43,7 @@ class TestCollection extends \PHPUnit_Framework_TestCase
         $exception = new \Exception();
         try {
             $this->deserializer->deserialize(IntegerCollection::class, $serialized);
-        }catch (DomainException $e) {
+        }catch (Deserializer\Exception $e) {
             $exception = $e;
         }
 

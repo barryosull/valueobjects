@@ -1,7 +1,7 @@
-<?php
+<?php namespace EventSourced\ValueObject\Assert;
 
-namespace EventSourced\ValueObject\Assert;
 use Respect\Validation\Exceptions\NestedValidationException;
+use EventSourced\ValueObject\ValidationException;
 
 class Assert 
 {        
