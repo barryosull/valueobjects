@@ -18,11 +18,15 @@ class TypeEntity
 
     public function deserialize($class, $serialized)
     {
+        if (is_array($serialized)) {
+            $serialized = (object)$serialized;
+        }
+
         $errors = [];
         $deserialized_parameters = [];
 
         $variable_property = $class::variable_property_key();
-        $variable_property_class = $class::get_class_for_type_key($serialized['type']);
+        $variable_property_class = $class::get_class_for_type_key($serialized->type);
 
         $parameters = $this->reflector->get_constructor_parameters($class);
         foreach ($parameters as $parameter) {
@@ -52,12 +56,12 @@ class TypeEntity
             $parameter_class = $variable_property_class;
         }
 
-        if (!isset($serialized[$name])) {
+        if (!property_exists($serialized, $name)) {
             throw new Exception(["Property '$name' is missing"]);
         }
 
         return $this->deserializer->deserialize(
-            $parameter_class, $serialized[$name]
+            $parameter_class, $serialized->$name
         );
     }
 }

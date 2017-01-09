@@ -18,6 +18,10 @@ class Composite
     
     public function deserialize($class, $serialized)
     {
+        if (is_array($serialized)) {
+            $serialized = (object)$serialized;
+        }
+
         $errors = [];
         $deserialized_parameters = [];
 
@@ -46,12 +50,12 @@ class Composite
         $name = $parameter->getName();
         $parameter_class = $parameter->getClass()->getName();
 
-        if (!isset($serialized[$name])) {
+        if (!property_exists($serialized, $name)) {
             throw new Exception(["Property '$name' is missing"]);
         }
 
         return $this->deserializer->deserialize(
-            $parameter_class, $serialized[$name]
+            $parameter_class, $serialized->$name
         );
     }
 }
