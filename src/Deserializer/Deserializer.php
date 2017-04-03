@@ -9,6 +9,7 @@ class Deserializer implements Contracts\Deserializer
     private $composite;
     private $set;
     private $type_entity;
+    private $money;
     
     public function __construct(Reflector $reflector)
     {
@@ -16,6 +17,7 @@ class Deserializer implements Contracts\Deserializer
         $this->composite = new Deserializer\Composite($this, $reflector);
         $this->set = new Deserializer\Set($this);
         $this->type_entity = new Deserializer\TypeEntity($this, $reflector);
+        $this->money = new Deserializer\Money();
     }
     
     public function deserialize($class, $parameters)
@@ -37,6 +39,9 @@ class Deserializer implements Contracts\Deserializer
         }
         if ($this->is_instance_of($class, Type\AbstractSet::class)) {
             return $this->set;
+        }
+        if ($this->is_instance_of($class, \Money\Money::class)) {
+            return $this->money;
         }
         
         throw new \Exception("No deserializer found for class ".$class);

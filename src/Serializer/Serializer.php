@@ -10,12 +10,14 @@ class Serializer implements Contracts\Serializer
     private $single_value;
     private $composite;
     private $set;
+    private $money;
     
     public function __construct(Reflector $reflector)
     {
         $this->single_value = new Serializer\SingleValue();
         $this->composite = new Serializer\Composite($this, $reflector);
         $this->set = new Serializer\Set($this);
+        $this->money = new Serializer\Money();
     }
 
     public function serialize($object)
@@ -37,6 +39,9 @@ class Serializer implements Contracts\Serializer
         }
         if ($this->is_instance_of($class, Type\AbstractSet::class)) {
             return $this->set;
+        }
+        if ($this->is_instance_of($class, \Money\Money::class)) {
+            return $this->money;
         }
         throw new Exception("No serializer found for class '".$class."'");
     }
