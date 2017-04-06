@@ -223,3 +223,43 @@ try {
     $exception->valueobject_class();
 }
 ```
+
+#### Extensions
+There is possibility to add custom value objects from third-party libraries.  
+In order to do that you should provide `YourClassSerializer` class with 2 interfaces implemented:  
+* `EventSourced\ValueObject\Contracts\Deserializer`
+* `EventSourced\ValueObject\Contracts\Serializer`.
+
+Below is an example for currency:
+```php
+class Currency implements Serializer, Deserializer
+{
+    public function deserialize($class, $parameters)
+    {
+        try {
+            return new \Money\Currency($parameters);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function serialize($serializable)
+    {
+        /**
+         * @var \Money\Currency $serializable
+         */
+        return $serializable->getCode();
+    }
+}
+```
+
+Then you should register it under `extenstions.php` in following way:
+
+```php
+return [
+    \Money\Currency::class =>
+        \EventSourced\ValueObject\Extensions\Serializers\Currency::class
+];
+```
+
+

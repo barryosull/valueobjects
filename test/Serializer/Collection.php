@@ -13,8 +13,9 @@ class TestCollection extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $reflector = new Reflector();
-        $this->serializer = new \EventSourced\ValueObject\Serializer\Serializer($reflector);
-        $this->deserializer = new Deserializer\Deserializer($reflector);
+        $extensions = new \EventSourced\ValueObject\Extensions\ExtensionRepository();
+        $this->serializer = new \EventSourced\ValueObject\Serializer\Serializer($reflector, $extensions);
+        $this->deserializer = new Deserializer\Deserializer($reflector, $extensions);
         parent::setUp();
     }
 

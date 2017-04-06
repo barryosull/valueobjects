@@ -2,6 +2,7 @@
 
 namespace EventSourced\ValueObject\Test\ValueObject;
 
+use EventSourced\ValueObject\Extensions\ExtensionRepository;
 use EventSourced\ValueObject\ValueObject\Coordinate;
 use EventSourced\ValueObject\Reflector\Reflector;
 
@@ -13,8 +14,9 @@ class TestSingleValue extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $reflector = new Reflector();
-        $this->serializer = new \EventSourced\ValueObject\Serializer\Serializer($reflector);
-        $this->deserializer = new \EventSourced\ValueObject\Deserializer\Deserializer($reflector);
+        $extensions = new ExtensionRepository();
+        $this->serializer = new \EventSourced\ValueObject\Serializer\Serializer($reflector, $extensions);
+        $this->deserializer = new \EventSourced\ValueObject\Deserializer\Deserializer($reflector, $extensions);
         parent::setUp();
     }
 
