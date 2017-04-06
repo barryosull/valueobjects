@@ -11,6 +11,7 @@ class Serializer implements Contracts\Serializer
     private $composite;
     private $set;
     private $money;
+    private $currency;
     
     public function __construct(Reflector $reflector)
     {
@@ -18,6 +19,7 @@ class Serializer implements Contracts\Serializer
         $this->composite = new Serializer\Composite($this, $reflector);
         $this->set = new Serializer\Set($this);
         $this->money = new Serializer\Money();
+        $this->currency = new Serializer\Currency();
     }
 
     public function serialize($object)
@@ -42,6 +44,9 @@ class Serializer implements Contracts\Serializer
         }
         if ($this->is_instance_of($class, \Money\Money::class)) {
             return $this->money;
+        }
+        if ($this->is_instance_of($class, \Money\Currency::class)) {
+            return $this->currency;
         }
         throw new Exception("No serializer found for class '".$class."'");
     }
