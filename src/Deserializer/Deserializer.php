@@ -1,6 +1,7 @@
 <?php namespace EventSourced\ValueObject\Deserializer;
 
 use EventSourced\ValueObject\Contracts;
+use EventSourced\ValueObject\Extensions\ExtensionRepository;
 use EventSourced\ValueObject\ValueObject\Type;
 
 class Deserializer implements Contracts\Deserializer 
@@ -9,20 +10,27 @@ class Deserializer implements Contracts\Deserializer
     private $composite;
     private $set;
     private $type_entity;
-    private $money;
-    
-    public function __construct(Reflector $reflector)
-    {
+    private $extensionRepository;
+
+    public function __construct(
+        Reflector $reflector,
+        ExtensionRepository $repository
+    ) {
         $this->single_value = new Deserializer\SingleValue();
         $this->composite = new Deserializer\Composite($this, $reflector);
         $this->set = new Deserializer\Set($this);
         $this->type_entity = new Deserializer\TypeEntity($this, $reflector);
-        $this->money = new Deserializer\Money();
+        $this->extensionRepository = $repository;
     }
     
     public function deserialize($class, $parameters)
     {
-        $deserializer = $this->deserializer_repo_fetch($class);
+        if ($this->extensionRepository->isExtension($class)) {
+            $deserializer = $this->extensionRepository->fetch($class);
+        } else {
+            $deserializer = $this->deserializer_repo_fetch($class);
+        }
+
         return $deserializer->deserialize($class, $parameters);
     }
  
@@ -39,9 +47,6 @@ class Deserializer implements Contracts\Deserializer
         }
         if ($this->is_instance_of($class, Type\AbstractSet::class)) {
             return $this->set;
-        }
-        if ($this->is_instance_of($class, \Money\Money::class)) {
-            return $this->money;
         }
         
         throw new \Exception("No deserializer found for class ".$class);

@@ -16,8 +16,9 @@ class TestIndex extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $reflector = new Reflector();
-        $this->serializer = new Serializer($reflector);
-        $this->deserializer = new Deserializer($reflector);
+        $extensions = new \EventSourced\ValueObject\Extensions\ExtensionRepository();
+        $this->serializer = new Serializer($reflector, $extensions);
+        $this->deserializer = new Deserializer($reflector, $extensions);
         parent::setUp();
     }
 

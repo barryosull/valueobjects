@@ -2,6 +2,7 @@
 
 use EventSourced\ValueObject\Deserializer\Deserializer;
 use EventSourced\ValueObject\Deserializer\Exception;
+use EventSourced\ValueObject\Extensions\ExtensionRepository;
 use EventSourced\ValueObject\Reflector\Reflector;
 use EventSourced\ValueObject\Serializer\Serializer;
 use EventSourced\ValueObject\ValueObject\NotBlankString;
@@ -24,10 +25,11 @@ class SampleSellableTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         parent::setUp();
-
+        
         $reflector = new Reflector();
-        $this->serializer = new Serializer($reflector);
-        $this->deserializer = new Deserializer($reflector);
+        $extensions = new ExtensionRepository();
+        $this->serializer = new Serializer($reflector, $extensions);
+        $this->deserializer = new Deserializer($reflector, $extensions);
     }
 
     public function test_create_sellable_item()

@@ -3,6 +3,7 @@
 namespace EventSourced\ValueObject\Serializer;
 
 use EventSourced\ValueObject\Contracts;
+use EventSourced\ValueObject\Extensions\ExtensionRepository;
 use EventSourced\ValueObject\ValueObject\Type;
 
 class Serializer implements Contracts\Serializer
@@ -10,19 +11,26 @@ class Serializer implements Contracts\Serializer
     private $single_value;
     private $composite;
     private $set;
-    private $money;
+    private $extensionRepository;
     
-    public function __construct(Reflector $reflector)
-    {
+    public function __construct(
+        Reflector $reflector,
+        ExtensionRepository $repository
+    ) {
         $this->single_value = new Serializer\SingleValue();
         $this->composite = new Serializer\Composite($this, $reflector);
         $this->set = new Serializer\Set($this);
-        $this->money = new Serializer\Money();
+        $this->extensionRepository = $repository;
     }
 
     public function serialize($object)
     {
-        $serializer = $this->serializer_repo_fetch(get_class($object), $object);
+        if ($this->extensionRepository->isExtension($object)) {
+            $serializer = $this->extensionRepository->fetch($object);
+        } else {
+            $serializer = $this->serializer_repo_fetch(get_class($object), $object);
+        }
+
         return $serializer->serialize($object);
     }
     
@@ -40,9 +48,7 @@ class Serializer implements Contracts\Serializer
         if ($this->is_instance_of($class, Type\AbstractSet::class)) {
             return $this->set;
         }
-        if ($this->is_instance_of($class, \Money\Money::class)) {
-            return $this->money;
-        }
+
         throw new Exception("No serializer found for class '".$class."'");
     }
 

@@ -11,7 +11,8 @@ class TestSerializerNotFound extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $reflector = new Reflector();
-        $this->serializer = new Serializer\Serializer($reflector);
+        $extensions = new \EventSourced\ValueObject\Extensions\ExtensionRepository();
+        $this->serializer = new Serializer\Serializer($reflector, $extensions);
         parent::setUp();
     }
 

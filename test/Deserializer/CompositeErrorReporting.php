@@ -11,7 +11,8 @@ class TestCompositeErrorReporting extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $reflector = new Reflector();
-        $this->deserializer = new Deserializer\Deserializer($reflector);
+        $extensions = new EventSourced\ValueObject\Extensions\ExtensionRepository();
+        $this->deserializer = new Deserializer\Deserializer($reflector, $extensions);
         parent::setUp();
     }
 

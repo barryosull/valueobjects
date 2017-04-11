@@ -1,5 +1,6 @@
 <?php namespace Test\Deserializer;
 
+use EventSourced\ValueObject\Extensions\ExtensionRepository;
 use Test\Serializer\EntityNode\Vehicle;
 use EventSourced\ValueObject\Reflector\Reflector;
 use EventSourced\ValueObject\Deserializer;
@@ -26,8 +27,9 @@ class EntityNode extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $reflector = new Reflector();
-        $this->serializer = new \EventSourced\ValueObject\Serializer\Serializer($reflector);
-        $this->deserializer = new Deserializer\Deserializer($reflector);
+        $extensions = new ExtensionRepository();
+        $this->serializer = new \EventSourced\ValueObject\Serializer\Serializer($reflector, $extensions);
+        $this->deserializer = new Deserializer\Deserializer($reflector, $extensions);
 
         $this->car = new Vehicle(
             new Uuid($this->deserialized_car['id']),
