@@ -21,11 +21,4 @@ class TestSerializerNotFound extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(Serializer\Exception::class, "No serializer found for class 'stdClass'");
         $this->serializer->serialize(new \stdClass());
     }
-
-    public function test_fails_if_VO_property_is_blank()
-    {
-        $this->setExpectedException(Serializer\Exception::class, "Property 'no_value' is null, cannot encode. Please check a value is assigned in the constructor.");
-        $VO = new \Test\Serializer\BlankPropertyVO( Uuid::generate());
-        $this->serializer->serialize($VO);
-    }
 }

@@ -84,6 +84,27 @@ class GPSCoordinates extends AbstractComposite
 ```
 So it's simply just a holder for a bunch of valueobjects. If you want to run any validation across value objects, you should do it in the constructor. The base class takes care of the "equals" method, so you don't have to worry about that.
 
+### Nullable Composite
+Making a nullable single value is easy, making a nullable composite is harder, and really should be used as a last resort. That said, it's useful to have.
+
+To create a nullable composite, you set all the defaults values for the composite to null. That's it.
+
+```php
+<?php namespace EventSourced\ValueObject\ValueObject;
+
+class NullableGPSCoordinates extends GPSCoordinates
+{
+    public function __construct(Coordinate $latitude=null, Coordinate $longitude=null)
+    {
+        $this->latitude = $latitude;
+        $this->longitude = $longitude;
+    }
+}
+
+```
+**NB:**
+When you serialize an instance of the above, and all the values are null, you will get a null response, not an array with keys and values, just null.
+
 ### Collections
 Sometimes you'll want to have a collection of ValueObjects. Now, you shouldn't use a standard array, because you want strong typing (also the deserializer has to know what type of ValueObject is in the collection, more on that later). That's why we created a simple helper class for creating strongly typed collections of ValueObjects.
 ```php

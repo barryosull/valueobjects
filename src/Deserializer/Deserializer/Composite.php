@@ -4,6 +4,7 @@ use EventSourced\ValueObject\Deserializer\Deserializer;
 use EventSourced\ValueObject\Deserializer\Reflector;
 use EventSourced\ValueObject\Deserializer\Exception;
 use EventSourced\ValueObject\Assert\Exception as AssertException;
+use ReflectionParameter;
 
 class Composite
 {
@@ -28,14 +29,18 @@ class Composite
         $parameters = $this->reflector->get_constructor_parameters($class);
         foreach ($parameters as $parameter) {
             $name = $parameter->getName();
-            try {
-                $deserialized_parameters[$name] = $this->make_parameter($parameter, $serialized);
-            } catch (AssertException $e) {
-                $errors[$name] = $e->error_messages();
-            } catch (Exception $e) {
-                $errors[$name] = $e->error_messages();
-            }
 
+            if ($this->is_nullable_parameter($parameter)) {
+                $deserialized_parameters[$name] = null;
+            } else {
+                try {
+                    $deserialized_parameters[$name] = $this->make_parameter($parameter, $serialized);
+                } catch (AssertException $e) {
+                    $errors[$name] = $e->error_messages();
+                } catch (Exception $e) {
+                    $errors[$name] = $e->error_messages();
+                }
+            }
         }
 
         if (count($errors) != 0) {
@@ -44,6 +49,12 @@ class Composite
 
         return $this->reflector->call_constructor($class, $deserialized_parameters);
     }
+
+    private function is_nullable_parameter(ReflectionParameter $parameter)
+    {
+        return ($parameter->isOptional() && $parameter->getDefaultValue() == null);
+    }
+
 
     private function make_parameter($parameter, $serialized)
     {

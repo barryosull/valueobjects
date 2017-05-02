@@ -1,8 +1,5 @@
-<?php
+<?php namespace EventSourced\ValueObject\Serializer\Serializer;
 
-namespace EventSourced\ValueObject\Serializer\Serializer;
-
-use EventSourced\ValueObject\Serializer\Exception;
 use EventSourced\ValueObject\Serializer\Serializer;
 use EventSourced\ValueObject\ValueObject\Type\AbstractComposite;
 use EventSourced\ValueObject\Serializer\Reflector;
@@ -27,10 +24,21 @@ class Composite
             $name = $parameter->getName();
             $value_object = $parameter->getValue($object);
             if (!$value_object) {
-                throw new Exception("Property '$name' is null, cannot encode. Please check a value is assigned in the constructor.");
+                $serialized[$name] = null;
+            } else {
+                $serialized[$name] = $this->serializer->serialize($value_object);
             }
-            $serialized[$name] = $this->serializer->serialize($value_object);
         }
+
+        if ($this->all_properties_are_null($serialized)) {
+            return null;
+        }
+
 		return $serialized;
+    }
+
+    private function all_properties_are_null($serialized)
+    {
+        return count(array_filter($serialized)) == 0;
     }
 }
