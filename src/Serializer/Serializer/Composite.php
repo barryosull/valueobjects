@@ -39,6 +39,8 @@ class Composite
 
     private function all_properties_are_null($serialized)
     {
-        return count(array_filter($serialized)) == 0;
+        return count(array_filter($serialized), function($value){
+            return $value !== null;
+        }) == 0;
     }
 }
