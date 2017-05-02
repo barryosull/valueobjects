@@ -100,8 +100,10 @@ class NullableGPSCoordinates extends GPSCoordinates
         $this->longitude = $longitude;
     }
 }
-
 ```
+
+Each composite offers a `is_null()` method, so you can easily check if the VO is actually null.
+
 **NB:**
 When you serialize an instance of the above, and all the values are null, you will get a null response, not an array with keys and values, just null.
 
