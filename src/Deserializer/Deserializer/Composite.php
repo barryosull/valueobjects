@@ -30,16 +30,12 @@ class Composite
         foreach ($parameters as $parameter) {
             $name = $parameter->getName();
 
-            if ($this->is_nullable_parameter($parameter)) {
-                $deserialized_parameters[$name] = null;
-            } else {
-                try {
-                    $deserialized_parameters[$name] = $this->make_parameter($parameter, $serialized);
-                } catch (AssertException $e) {
-                    $errors[$name] = $e->error_messages();
-                } catch (Exception $e) {
-                    $errors[$name] = $e->error_messages();
-                }
+            try {
+                $deserialized_parameters[$name] = $this->make_parameter($parameter, $serialized);
+            } catch (AssertException $e) {
+                $errors[$name] = $e->error_messages();
+            } catch (Exception $e) {
+                $errors[$name] = $e->error_messages();
             }
         }
 
@@ -58,6 +54,10 @@ class Composite
 
     private function make_parameter($parameter, $serialized)
     {
+        if ($this->is_nullable_parameter($parameter)) {
+            return null;
+        }
+
         $name = $parameter->getName();
         $parameter_class = $parameter->getClass()->getName();
 
