@@ -27,9 +27,9 @@ class TestNullableComposite extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->deserialized, $this->serializer->serialize($this->gps));
     }
 
-    public function test_deserialize()
+    public function test_deserialize_null()
     {
-        $gps = $this->deserializer->deserialize(NullableGPSCoordinates::class, $this->deserialized);
+        $gps = $this->deserializer->deserialize(NullableGPSCoordinates::class, null);
         $this->assertTrue($this->gps->equals($gps));
     }
 
@@ -37,6 +37,14 @@ class TestNullableComposite extends \PHPUnit_Framework_TestCase
     {
         $deserialized = ['latitude'=>23.9, 'longitude'=>90.0];
         $gps = new NullableGPSCoordinates(new Coordinate(23.9),  new Coordinate(90.0));
+
+        $this->assertEquals($deserialized, $this->serializer->serialize($gps));
+    }
+    
+    public function test_zero_values_are_not_treated_as_null()
+    {
+        $deserialized = ['latitude'=>0, 'longitude'=>0.0];
+        $gps = new NullableGPSCoordinates(new Coordinate(0),  new Coordinate(0));
 
         $this->assertEquals($deserialized, $this->serializer->serialize($gps));
     }

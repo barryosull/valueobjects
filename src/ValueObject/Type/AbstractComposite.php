@@ -22,4 +22,13 @@ abstract class AbstractComposite extends AbstractValueObject
         }
 		return $result;
 	}
+
+    public function is_null()
+    {
+        $result = true;
+        foreach ($this as $key=>$valueobject) {
+            $result = $result && ($valueobject === null);
+        }
+        return $result;
+    }
 }
