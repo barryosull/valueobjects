@@ -46,20 +46,14 @@ class Composite
         return $this->reflector->call_constructor($class, $deserialized_parameters);
     }
 
-    private function is_nullable_parameter(ReflectionParameter $parameter)
-    {
-        return ($parameter->isOptional() && $parameter->getDefaultValue() == null);
-    }
-
-
     private function make_parameter($parameter, $serialized)
     {
-        if ($this->is_nullable_parameter($parameter)) {
-            return null;
-        }
-
         $name = $parameter->getName();
         $parameter_class = $parameter->getClass()->getName();
+
+        if ($this->is_nullable_parameter($parameter) && is_null($serialized)) {
+            return null;
+        }
 
         if (!property_exists($serialized, $name)) {
             throw new Exception(["Property '$name' is missing"]);
@@ -68,5 +62,10 @@ class Composite
         return $this->deserializer->deserialize(
             $parameter_class, $serialized->$name
         );
+    }
+
+    private function is_nullable_parameter(ReflectionParameter $parameter)
+    {
+        return ($parameter->isOptional() && $parameter->getDefaultValue() === null);
     }
 }
