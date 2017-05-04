@@ -5,9 +5,9 @@ namespace EventSourced\ValueObject\ValueObject\Type;
 use EventSourced\ValueObject\Contracts\ValueObject;
 
 abstract class AbstractComposite extends AbstractValueObject
-{  
-    public function equals(ValueObject $other_valueobject) 
-	{
+{
+    public function equals(ValueObject $other_valueobject)
+    {
         if (!$this->is_same_class($other_valueobject)) {
             return false;
         }
@@ -17,10 +17,10 @@ abstract class AbstractComposite extends AbstractValueObject
                 return false;
             }
         }
-		return true;
-	}
+        return true;
+    }
 
-	private function vos_are_equal($valueobect_a, $valueobect_b)
+    private function vos_are_equal($valueobect_a, $valueobect_b)
     {
         if ($valueobect_a === null) {
             return ($valueobect_b === null);
