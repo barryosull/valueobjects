@@ -4,6 +4,7 @@ use EventSourced\ValueObject\Deserializer\Deserializer;
 use EventSourced\ValueObject\Deserializer\Reflector;
 use EventSourced\ValueObject\Deserializer\Exception;
 use EventSourced\ValueObject\Assert\Exception as AssertException;
+use ReflectionParameter;
 
 class Composite
 {
@@ -15,7 +16,7 @@ class Composite
         $this->deserializer = $deserializer;
         $this->reflector = $reflector;
     }
-    
+
     public function deserialize($class, $serialized)
     {
         if (is_array($serialized)) {
@@ -28,6 +29,7 @@ class Composite
         $parameters = $this->reflector->get_constructor_parameters($class);
         foreach ($parameters as $parameter) {
             $name = $parameter->getName();
+
             try {
                 $deserialized_parameters[$name] = $this->make_parameter($parameter, $serialized);
             } catch (AssertException $e) {
@@ -35,7 +37,6 @@ class Composite
             } catch (Exception $e) {
                 $errors[$name] = $e->error_messages();
             }
-
         }
 
         if (count($errors) != 0) {
@@ -50,6 +51,10 @@ class Composite
         $name = $parameter->getName();
         $parameter_class = $parameter->getClass()->getName();
 
+        if ($this->is_nullable_parameter($parameter) && is_null($serialized)) {
+            return null;
+        }
+
         if (!property_exists($serialized, $name)) {
             throw new Exception(["Property '$name' is missing"]);
         }
@@ -57,5 +62,10 @@ class Composite
         return $this->deserializer->deserialize(
             $parameter_class, $serialized->$name
         );
+    }
+
+    private function is_nullable_parameter(ReflectionParameter $parameter)
+    {
+        return ($parameter->isOptional() && $parameter->getDefaultValue() === null);
     }
 }
