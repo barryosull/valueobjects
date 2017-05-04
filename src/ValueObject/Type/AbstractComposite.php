@@ -13,14 +13,14 @@ abstract class AbstractComposite extends AbstractValueObject
         }
 
         foreach ($this as $key=>$valueobject) {
-            if (!$this->vos_are_eqauls($valueobject, $other_valueobject->$key)) {
+            if (!$this->vos_are_equal($valueobject, $other_valueobject->$key)) {
                 return false;
             }
         }
 		return true;
 	}
 
-	private function vos_are_eqauls($valueobect_a, $valueobect_b)
+	private function vos_are_equal($valueobect_a, $valueobect_b)
     {
         if ($valueobect_a === null) {
             return ($valueobect_b === null);
