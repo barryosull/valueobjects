@@ -3,7 +3,7 @@
 use EventSourced\ValueObject\Deserializer\Deserializer;
 use EventSourced\ValueObject\Deserializer\Reflector;
 
-class Composite
+class MethodArguments
 {
     private $deserializer;
     private $reflector;
@@ -14,14 +14,12 @@ class Composite
         $this->reflector = $reflector;
     }
 
-    public function deserialize($class, $serialized)
+    public function deserialize($class, $method, $serialized)
     {
-        $parameters_deserializer = new Parameters($this->deserializer);
+        $reflection_parameters = new Parameters($this->deserializer);
 
-        $reflection_parameters = $this->reflector->get_constructor_parameters($class);
+        $parameters = $this->reflector->get_method_parameters($class, $method);
 
-        $parameters = $parameters_deserializer->deserialize($reflection_parameters, $serialized);
-
-        return $this->reflector->call_constructor($class, $parameters);
+        return $reflection_parameters->deserialize($parameters, $serialized);
     }
 }

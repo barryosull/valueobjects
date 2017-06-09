@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "moneyphp/money",
-            "version": "v3.0.3",
+            "version": "v3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moneyphp/money.git",
-                "reference": "295c5135af2aedba535587e3d9daa30c176964b6"
+                "reference": "2bd76fb0ba281bd90150a747bb7a8415c7e241f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/moneyphp/money/zipball/295c5135af2aedba535587e3d9daa30c176964b6",
-                "reference": "295c5135af2aedba535587e3d9daa30c176964b6",
+                "url": "https://api.github.com/repos/moneyphp/money/zipball/2bd76fb0ba281bd90150a747bb7a8415c7e241f3",
+                "reference": "2bd76fb0ba281bd90150a747bb7a8415c7e241f3",
                 "shasum": ""
             },
             "require": {
@@ -31,7 +31,7 @@
                 "ext-intl": "*",
                 "florianv/swap": "^3.0",
                 "henrikbjorn/phpspec-code-coverage": "^2.0.2",
-                "moneyphp/iso-currencies": "^1.0",
+                "moneyphp/iso-currencies": "^3.0",
                 "php-http/message": "^1.4",
                 "php-http/mock-client": "^0.3.3",
                 "phpspec/phpspec": "^2.5",
@@ -83,7 +83,7 @@
                 "money",
                 "vo"
             ],
-            "time": "2017-03-22 22:24:40"
+            "time": "2017-04-26 12:54:44"
         },
         {
             "name": "nesbot/carbon",
@@ -378,16 +378,16 @@
         },
         {
             "name": "symfony/translation",
-            "version": "v3.2.7",
+            "version": "v3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation.git",
-                "reference": "c740eee70783d2af4d3d6b70d5146f209e6b4d13"
+                "reference": "dc3b2a0c6cfff60327ba1c043a82092735397543"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/translation/zipball/c740eee70783d2af4d3d6b70d5146f209e6b4d13",
-                "reference": "c740eee70783d2af4d3d6b70d5146f209e6b4d13",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/dc3b2a0c6cfff60327ba1c043a82092735397543",
+                "reference": "dc3b2a0c6cfff60327ba1c043a82092735397543",
                 "shasum": ""
             },
             "require": {
@@ -395,13 +395,14 @@
                 "symfony/polyfill-mbstring": "~1.0"
             },
             "conflict": {
-                "symfony/config": "<2.8"
+                "symfony/config": "<2.8",
+                "symfony/yaml": "<3.3"
             },
             "require-dev": {
                 "psr/log": "~1.0",
                 "symfony/config": "~2.8|~3.0",
                 "symfony/intl": "^2.8.18|^3.2.5",
-                "symfony/yaml": "~2.8|~3.0"
+                "symfony/yaml": "~3.3"
             },
             "suggest": {
                 "psr/log": "To use logging capability in translator",
@@ -411,7 +412,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.3-dev"
                 }
             },
             "autoload": {
@@ -438,7 +439,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2017-03-21 21:44:32"
+            "time": "2017-05-22 07:42:36"
         }
     ],
     "packages-dev": [
@@ -498,16 +499,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "5a5a9fc8025a08d8919be87d6884d5a92520cefe"
+                "reference": "8e6e04167378abf1ddb4d3522d8755c5fd90d102"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/5a5a9fc8025a08d8919be87d6884d5a92520cefe",
-                "reference": "5a5a9fc8025a08d8919be87d6884d5a92520cefe",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/8e6e04167378abf1ddb4d3522d8755c5fd90d102",
+                "reference": "8e6e04167378abf1ddb4d3522d8755c5fd90d102",
                 "shasum": ""
             },
             "require": {
@@ -536,7 +537,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2017-01-26 22:05:40"
+            "time": "2017-04-12 18:52:22"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -1237,23 +1238,23 @@
         },
         {
             "name": "sebastian/diff",
-            "version": "1.4.1",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/diff.git",
-                "reference": "13edfd8706462032c2f52b4b862974dd46b71c9e"
+                "reference": "7f066a26a962dbe58ddea9f72a4e82874a3975a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/13edfd8706462032c2f52b4b862974dd46b71c9e",
-                "reference": "13edfd8706462032c2f52b4b862974dd46b71c9e",
+                "url": "https://api.github.com/repos/sebastianbergmann/diff/zipball/7f066a26a962dbe58ddea9f72a4e82874a3975a4",
+                "reference": "7f066a26a962dbe58ddea9f72a4e82874a3975a4",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": "^5.3.3 || ^7.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.8"
+                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0"
             },
             "type": "library",
             "extra": {
@@ -1285,7 +1286,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2015-12-08 07:14:41"
+            "time": "2017-05-22 07:24:03"
         },
         {
             "name": "sebastian/environment",
@@ -1595,16 +1596,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.2.7",
+            "version": "v3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "62b4cdb99d52cb1ff253c465eb1532a80cebb621"
+                "reference": "9752a30000a8ca9f4b34b5227d15d0101b96b063"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/62b4cdb99d52cb1ff253c465eb1532a80cebb621",
-                "reference": "62b4cdb99d52cb1ff253c465eb1532a80cebb621",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/9752a30000a8ca9f4b34b5227d15d0101b96b063",
+                "reference": "9752a30000a8ca9f4b34b5227d15d0101b96b063",
                 "shasum": ""
             },
             "require": {
@@ -1619,7 +1620,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.3-dev"
                 }
             },
             "autoload": {
@@ -1646,7 +1647,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-03-20 09:45:15"
+            "time": "2017-06-02 22:05:06"
         },
         {
             "name": "webmozart/assert",
