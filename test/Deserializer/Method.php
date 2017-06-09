@@ -36,8 +36,6 @@ class Method extends \PHPUnit_Framework_TestCase
         $this->serializer = new \EventSourced\ValueObject\Serializer\Serializer($reflector, $extensions);
         $this->deserializer = new Deserializer\Deserializer($reflector, $extensions);
 
-
-
         $this->car = new Vehicle(
             new Uuid($this->serialized_method_argument['vehicle']['id']),
             new MaxSpeed(150),
@@ -51,9 +49,9 @@ class Method extends \PHPUnit_Framework_TestCase
 
     public function test_deserialize_into_method()
     {
-        $car_checker = new VehicleChecker();
+        $vehicle_checker = new VehicleChecker();
 
-        $method = $this->deserializer->deserializeMethod($car_checker, "acceptAndReturnVehicle", $this->serialized_method_argument);
+        $method = $this->deserializer->deserializeMethod($vehicle_checker, "acceptAndReturnVehicle", $this->serialized_method_argument);
         $this->assertEquals($this->car, $method->run());
     }
 }
