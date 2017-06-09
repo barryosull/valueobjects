@@ -39,4 +39,10 @@ class Reflector implements Deserializer\Reflector, Serializer\Reflector
         }
         return self::$vo_to_reflection_cache[$class_name];
     }
+
+    public function get_method_parameters($class, $method)
+    {
+        $reflection = new \ReflectionMethod($class, $method);
+        return $reflection->getParameters();
+    }
 }

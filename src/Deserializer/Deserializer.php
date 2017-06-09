@@ -1,15 +1,17 @@
 <?php namespace EventSourced\ValueObject\Deserializer;
 
 use EventSourced\ValueObject\Contracts;
+use EventSourced\ValueObject\Deserializer\Deserializer\MethodArguments;
 use EventSourced\ValueObject\Extensions\ExtensionRepository;
 use EventSourced\ValueObject\ValueObject\Type;
 
-class Deserializer implements Contracts\Deserializer 
+class Deserializer implements Contracts\Deserializer, Contracts\MethodDeserializer
 {
     private $single_value;
     private $composite;
     private $set;
     private $type_entity;
+    private $method_arguments;
     private $extensionRepository;
 
     public function __construct(
@@ -20,6 +22,7 @@ class Deserializer implements Contracts\Deserializer
         $this->composite = new Deserializer\Composite($this, $reflector);
         $this->set = new Deserializer\Set($this);
         $this->type_entity = new Deserializer\TypeEntity($this, $reflector);
+        $this->method_arguments = new MethodArguments($this, $reflector);
         $this->extensionRepository = $repository;
     }
     
@@ -56,5 +59,12 @@ class Deserializer implements Contracts\Deserializer
     {
         return is_subclass_of($class, $parent_class)
             || ($class == $parent_class);
+    }
+
+    public function deserializeMethod($object, $method, $serialized_parameters)
+    {
+        $arguments = $this->method_arguments->deserialize(get_class($object), $method, $serialized_parameters);
+
+        return new Method($object, $method, $arguments);
     }
 }
