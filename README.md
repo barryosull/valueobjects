@@ -285,4 +285,42 @@ return [
 ];
 ```
 
+### Deserializing method parameters
+A handy feature we've added is to deserialize serialized VOs into a callable method. 
 
+Take a class that has a method which takes in value objects as arguments.
+
+```php
+
+class PhoneBook 
+{
+    public function addPhoneNumber(PhoneNumber $number, Name $name, Address $address)
+    {
+        //...
+    }
+}
+
+```
+Wouldn't it be handy to deserialize these arguments and call this method, without having to wrap all the arguments in a single object? Well, you can!
+
+```php
+$phone_book = new PhoneBook();
+
+$payload = [
+    'number' => "085343534545",
+    'name' => "Tim Beedle",
+    'address' => [
+        '83 Lambsgate',
+        'Herbert Road',
+        'Ballbridge',
+        'D4',
+        'Dublin'
+    ]
+];
+
+$deserializer = new Deserializer();
+
+$method = $deserializer->deserializeMethod($phone_book, "addPhoneNumber", $payload);
+$result = $method->run();
+```
+`$method->run();` calls the method on that object, with all the arguments taken from the the `$payload` object. Like the object deserializer, it will throw an exception if it the arguments can't be deserialized.
