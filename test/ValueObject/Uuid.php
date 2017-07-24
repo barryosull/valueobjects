@@ -15,4 +15,10 @@ class TestUuid extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(Assert\Exception::class);
         new Uuid("asdfasdf");
     }
+
+    public function test_fails_if_the_uuid_is_too_long()
+    {
+        $this->setExpectedException(Assert\Exception::class);
+        new Uuid("ac9e4e83-5495-4a58-90d9-eeeaf3989bc8a");
+    }
 }
