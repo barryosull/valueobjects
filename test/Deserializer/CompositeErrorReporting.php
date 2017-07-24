@@ -26,7 +26,7 @@ class TestCompositeErrorReporting extends \PHPUnit_Framework_TestCase
         $exception = $this->fail_elegantly($encoded);
 
         $expected = [
-            "id" => ['"1234" must validate against "/([a-f\\\\d]{8}(-[a-f\\\\d]{4}){3}-[a-f\\\\d]{12}?)/i"'],
+            "id" => ['"1234" must validate against "/([a-f\\\\d]{8}(-[a-f\\\\d]{4}){3}-[a-f\\\\d]{12}?)$/i"'],
             "date" => ['"saads" must be a valid date']
         ];
 
