@@ -2,15 +2,15 @@
 
 namespace EventSourced\ValueObject\ValueObject;
 
-use EventSourced\ValueObject\Contracts\ValueObject;
 use EventSourced\ValueObject\ValueObject\Type\AbstractTypeObject;
+use Money\Money;
 
 class SampleCompositeWithVariableType extends AbstractTypeObject
 {
     protected $type;
     protected $value;
 
-    public function __construct(SampleType $type, ValueObject $value)
+    public function __construct(SampleType $type, $value)
     {
         $this->type = $type;
         $this->value = $value;
@@ -20,7 +20,8 @@ class SampleCompositeWithVariableType extends AbstractTypeObject
     {
         return [
             'default' => Uuid::class,
-            'coordinates' => GPSCoordinates::class
+            'coordinates' => GPSCoordinates::class,
+            'money' => Money::class
         ];
     }
 

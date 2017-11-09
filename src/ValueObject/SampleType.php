@@ -10,7 +10,8 @@ class SampleType extends AbstractSingleValue
     {
         return parent::validator()->in([
             'default',
-            'coordinates'
+            'coordinates',
+            'money'
         ]);
     }
 }

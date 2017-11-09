@@ -11,6 +11,7 @@ use EventSourced\ValueObject\ValueObject\GPSCoordinates;
 use EventSourced\ValueObject\ValueObject\SampleCompositeWithVariableType;
 use EventSourced\ValueObject\ValueObject\SampleType;
 use EventSourced\ValueObject\ValueObject\Uuid;
+use Money\Money;
 
 class AbstractTypeObjectDeserializerTest extends \PHPUnit_Framework_TestCase
 {
@@ -96,5 +97,43 @@ class AbstractTypeObjectDeserializerTest extends \PHPUnit_Framework_TestCase
         $serialized2 = $this->serializer->serialize($sample2);
 
         $this->assertEquals($expected2, $serialized2);
+    }
+
+    public function test_should_deserialize_composite_with_variable_money_type()
+    {
+        $sample = [
+            'type' => 'money',
+            'value' => [
+                'amount' => 1000,
+                'currency' => 'EUR'
+            ]
+        ];
+
+        $sample = $this->deserializer->deserialize(
+            SampleCompositeWithVariableType::class,
+            $sample
+        );
+
+        $this->assertInstanceOf(SampleCompositeWithVariableType::class, $sample);
+    }
+
+    public function test_should_serialize_composite_with_variable_money_type()
+    {
+        $sample = new SampleCompositeWithVariableType(
+            new SampleType('money'),
+            Money::EUR(1000)
+        );
+
+        $expected = [
+            'type' => 'money',
+            'value' => [
+                'amount' => 1000,
+                'currency' => 'EUR'
+            ]
+        ];
+
+        $serialized = $this->serializer->serialize($sample);
+
+        $this->assertEquals($expected, $serialized);
     }
 }
