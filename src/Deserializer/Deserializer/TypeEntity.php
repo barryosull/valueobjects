@@ -50,10 +50,11 @@ class TypeEntity
     private function make_parameter($parameter, $serialized, $variable_property, $variable_property_class)
     {
         $name = $parameter->getName();
-        $parameter_class = $parameter->getClass()->getName();
 
         if ($name == $variable_property) {
             $parameter_class = $variable_property_class;
+        } else {
+            $parameter_class = $parameter->getClass()->getName();
         }
 
         if (!property_exists($serialized, $name)) {

@@ -42,6 +42,9 @@ class Deserializer implements Contracts\Deserializer, Contracts\MethodDeserializ
         if ($this->is_instance_of($class, Type\AbstractTypeEntity::class)) {
             return $this->type_entity;
         }
+        if ($this->is_instance_of($class, Type\AbstractTypeObject::class)) {
+            return $this->type_entity;
+        }
         if ($this->is_instance_of($class, Type\AbstractSingleValue::class)) {
             return $this->single_value;
         } 
