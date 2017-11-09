@@ -39,6 +39,9 @@ class Serializer implements Contracts\Serializer
         if ($this->is_instance_of($class, Type\AbstractTypeEntity::class)) {
             return $this->composite;
         }
+        if ($this->is_instance_of($class, Type\AbstractTypeObject::class)) {
+            return $this->composite;
+        }
         if ($this->is_instance_of($class, Type\AbstractSingleValue::class)) {
             return $this->single_value;
         } 
