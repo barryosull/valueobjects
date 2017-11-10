@@ -20,6 +20,11 @@ class Composite
         $properties = $this->reflector->get_properties($object);
         
         $serialized = [];
+
+        if ($this->all_properties_are_null($object, $properties)) {
+            return null;
+        }
+
         foreach ($properties as $parameter) {
             $name = $parameter->getName();
             $value_object = $parameter->getValue($object);
@@ -30,18 +35,17 @@ class Composite
             }
         }
 
-        if ($this->all_properties_are_null($serialized)) {
-            return null;
-        }
-
 		return $serialized;
     }
 
-    private function all_properties_are_null($serialized)
+    private function all_properties_are_null($object, $properties)
     {
-        $no_nulls = array_filter($serialized, function($var){
-            return !is_null($var);
-        } );
-        return count($no_nulls) == 0;
+        foreach ($properties as $parameter) {
+            $value_object = $parameter->getValue($object);
+            if ($value_object) {
+                return false;
+            }
+        }
+        return true;
     }
 }
